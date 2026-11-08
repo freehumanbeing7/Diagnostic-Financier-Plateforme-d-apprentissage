@@ -1,0 +1,1750 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%276%27 fill=%27%23212C02%27/%3E%3Crect x=%277%27 y=%2716%27 width=%277%27 height=%279%27 fill=%27%23E2C97A%27/%3E%3Crect x=%2716%27 y=%279%27 width=%277%27 height=%2716%27 fill=%27%23F5E6A2%27/%3E%3C/svg%3E">
+<title>Radiographie Financière — Diagnostic Financier expliqué simplement</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&family=Cairo:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============ RESET ============ */
+*,*::before,*::after{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+img,svg{display:block;max-width:100%;}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer;padding:0;}
+input{font:inherit;color:inherit;}
+a{color:inherit;}
+ul,ol{margin:0;padding:0;}
+h1,h2,h3,h4,p{margin:0;}
+
+/* ============ TOKENS — LIGHT (default) — palette du logo ============ */
+:root{
+  --bg:#F4F0DD; --bg-alt:#EAE4C8; --surface:#FFFDF5; --surface-2:#EFE9D2;
+  --text:#1B2402; --text-soft:#5C6140; --text-faint:#8C8F72;
+  --border:rgba(33,44,2,0.14); --border-strong:rgba(33,44,2,0.26);
+  --brand-900:#212C02; --brand-700:#364410; --brand-500:#7A6416; --brand-300:#C9B66E; --brand-100:#ECE3BB; --brand-contrast:#F3E7B5;
+  --accent-700:#8A6A12; --accent-500:#C9A13B; --accent-300:#E2C97A; --accent-100:#F3E8BD;
+  --warn-600:#93412A; --warn-100:#F3DDD1;
+  --good:#2E7D5B; --good-100:#DCEEE4; --bad:#A9403B; --bad-100:#F5DEDB;
+  --radius-s:6px; --radius-m:12px; --radius-l:20px;
+  --shadow-1:0 1px 2px rgba(33,44,2,0.06), 0 1px 1px rgba(33,44,2,0.04);
+  --shadow-2:0 8px 24px rgba(33,44,2,0.12);
+  --font-display:'Fraunces', Georgia, serif;
+  --font-body:'Work Sans', 'Segoe UI', sans-serif;
+  --font-ar:'Cairo', 'Segoe UI', sans-serif;
+  --font-mono:'JetBrains Mono', ui-monospace, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){ 
+    --bg:#151C03; --bg-alt:#1A2305; --surface:#212C02; --surface-2:#1B2504;
+    --text:#F1EBD0; --text-soft:#BDBB9A; --text-faint:#8A8A6C;
+    --border:rgba(241,235,208,0.12); --border-strong:rgba(241,235,208,0.22);
+    --brand-900:#E2C97A; --brand-700:#E9D48D; --brand-500:#D9BC5E; --brand-300:#5C5420; --brand-100:#2A3508; --brand-contrast:#212C02;
+    --accent-700:#F0D98E; --accent-500:#DDB650; --accent-300:#8A6A12; --accent-100:#2B2A0A;
+    --warn-600:#E2917A; --warn-100:#2E1B14;
+    --good:#6BC79E; --good-100:#123324; --bad:#E08B85; --bad-100:#3A1917;
+    --shadow-1:0 1px 2px rgba(0,0,0,0.3); --shadow-2:0 12px 28px rgba(0,0,0,0.4);
+    color-scheme: dark;
+   }
+}
+:root[data-theme="dark"]{ 
+    --bg:#151C03; --bg-alt:#1A2305; --surface:#212C02; --surface-2:#1B2504;
+    --text:#F1EBD0; --text-soft:#BDBB9A; --text-faint:#8A8A6C;
+    --border:rgba(241,235,208,0.12); --border-strong:rgba(241,235,208,0.22);
+    --brand-900:#E2C97A; --brand-700:#E9D48D; --brand-500:#D9BC5E; --brand-300:#5C5420; --brand-100:#2A3508; --brand-contrast:#212C02;
+    --accent-700:#F0D98E; --accent-500:#DDB650; --accent-300:#8A6A12; --accent-100:#2B2A0A;
+    --warn-600:#E2917A; --warn-100:#2E1B14;
+    --good:#6BC79E; --good-100:#123324; --bad:#E08B85; --bad-100:#3A1917;
+    --shadow-1:0 1px 2px rgba(0,0,0,0.3); --shadow-2:0 12px 28px rgba(0,0,0,0.4);
+    color-scheme: dark;
+   }
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--font-body);
+  font-size:16px;
+  line-height:1.55;
+  min-height:100vh;
+}
+[dir="rtl"], .tn{
+  font-family:var(--font-ar);
+  direction:rtl;
+  text-align:right;
+  unicode-bidi:isolate;
+  line-height:1.9;
+}
+
+/* ============ LAYOUT ============ */
+.app{display:flex; min-height:100vh;}
+
+.sidebar{
+  width:264px; flex-shrink:0;
+  background:#212C02;
+  color:#F3E7B5;
+  display:flex; flex-direction:column;
+  position:sticky; top:0; height:100vh; overflow-y:auto;
+}
+.sidebar .brand{
+  display:flex; align-items:center; gap:12px;
+  padding:18px 16px 12px; justify-content:center;
+}
+.brand .logo-svg{width:100%; max-width:210px; height:auto; margin:0 auto;}
+.brand-text{font-family:var(--font-display); font-size:1.18rem; font-weight:600; line-height:1.15;}
+.brand-text small{display:block;font-family:var(--font-body);font-weight:500;font-size:.68rem;letter-spacing:.03em;opacity:.62;margin-top:2px;}
+
+.nav-list{list-style:none; padding:6px 12px; margin:0; flex:1;}
+.nav-item{margin-bottom:2px;}
+.nav-btn{
+  width:100%; display:flex; align-items:center; gap:12px;
+  padding:11px 12px; border-radius:var(--radius-m);
+  font-size:.92rem; font-weight:500; text-align:left;
+  color:rgba(243,231,181,0.78);
+  transition:background-color .15s ease, color .15s ease;
+}
+.nav-btn svg{width:19px;height:19px;flex-shrink:0;opacity:.85;}
+.nav-btn:hover{background:rgba(243,231,181,0.08); color:#F3E7B5;}
+.nav-btn.active{background:rgba(226,201,122,0.16); color:#F3E7B5; font-weight:600;}
+.nav-num{font-family:var(--font-mono); font-size:.68rem; opacity:.55; width:14px;}
+
+.sidebar-foot{padding:16px 20px 20px; border-top:1px solid rgba(243,231,181,0.1);}
+.progress-mini{font-size:.72rem; color:rgba(243,231,181,0.6); margin-bottom:8px;}
+.progress-track{height:5px;border-radius:3px;background:rgba(243,231,181,0.14);overflow:hidden;}
+.progress-fill{height:100%;background:var(--accent-500);border-radius:3px;transition:width .4s ease;}
+
+.main-col{flex:1; min-width:0; display:flex; flex-direction:column;}
+
+.topbar{
+  position:sticky; top:0; z-index:20;
+  display:flex; align-items:center; gap:14px;
+  padding:14px 28px; background:var(--bg); border-bottom:1px solid var(--border);
+  backdrop-filter:saturate(1.4);
+}
+.hamburger{display:none;}
+.search-wrap{position:relative; flex:1; max-width:420px;}
+.search-wrap svg{position:absolute; left:12px; top:50%; transform:translateY(-50%); width:16px;height:16px; color:var(--text-faint);}
+.search-input{
+  width:100%; padding:9px 14px 9px 36px; border-radius:999px;
+  border:1px solid var(--border); background:var(--surface); color:var(--text);
+  font-size:.88rem;
+}
+.search-input:focus{outline:2px solid var(--accent-500); outline-offset:1px; border-color:transparent;}
+.search-results{
+  position:absolute; top:calc(100% + 8px); left:0; right:0;
+  background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-m);
+  box-shadow:var(--shadow-2); max-height:340px; overflow-y:auto; z-index:30; display:none;
+}
+.search-results.open{display:block;}
+.search-res-item{display:block; width:100%; text-align:left; padding:10px 14px; font-size:.86rem; border-bottom:1px solid var(--border);}
+.search-res-item:last-child{border-bottom:none;}
+.search-res-item:hover{background:var(--surface-2);}
+.search-res-item .tag{font-size:.68rem; color:var(--text-faint); text-transform:uppercase; letter-spacing:.04em;}
+.search-empty{padding:14px; font-size:.84rem; color:var(--text-faint);}
+
+.topbar-actions{display:flex; align-items:center; gap:6px; margin-left:auto;}
+.icon-btn{
+  width:38px;height:38px; border-radius:999px; display:flex; align-items:center; justify-content:center;
+  color:var(--text-soft); transition:background-color .15s ease;
+}
+.icon-btn:hover{background:var(--surface-2);}
+.icon-btn svg{width:19px;height:19px;}
+
+.content{flex:1; padding:34px 40px 80px; max-width:980px; margin:0 auto; width:100%;}
+.view{display:none;}
+.view.active{display:block; animation:fadein .35s ease;}
+@keyframes fadein{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
+@media (prefers-reduced-motion: reduce){
+  .view.active{animation:none;}
+  *{scroll-behavior:auto !important;}
+}
+
+.eyebrow{font-size:.78rem; color:var(--brand-500); font-weight:600; margin-bottom:8px;}
+.view-title{font-family:var(--font-display); font-size:2rem; font-weight:600; letter-spacing:-.01em; margin-bottom:10px;}
+.view-lede{color:var(--text-soft); font-size:1.02rem; max-width:640px; margin-bottom:30px;}
+
+.back-btn{
+  display:inline-flex; align-items:center; gap:6px; font-size:.85rem; font-weight:600;
+  color:var(--brand-500); margin-bottom:18px;
+}
+.back-btn svg{width:15px;height:15px;}
+.back-btn:hover{text-decoration:underline;}
+
+/* ============ HERO (Grand 1) ============ */
+.hero{
+  display:grid; grid-template-columns:1.1fr .9fr; gap:36px; align-items:center;
+  padding:34px 0 42px; border-bottom:1px solid var(--border); margin-bottom:36px;
+}
+.hero h1{font-family:var(--font-display); font-size:2.5rem; line-height:1.1; font-weight:600; letter-spacing:-.015em; margin-bottom:16px;}
+.hero p{color:var(--text-soft); font-size:1.04rem; max-width:52ch;}
+.hero-art{justify-self:center;}
+.hero-art svg{width:100%; max-width:280px;}
+@media (max-width:820px){ .hero{grid-template-columns:1fr;} .hero-art{order:-1; max-width:200px; margin:0 auto;} }
+
+.callout{
+  background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--brand-500);
+  border-radius:var(--radius-m); padding:18px 20px; margin:22px 0;
+}
+.callout h4{font-size:.95rem; font-weight:700; margin-bottom:6px;}
+.callout p{color:var(--text-soft); font-size:.92rem;}
+
+.prereq-box{
+  background:var(--surface-2); border:1px solid var(--border); border-radius:var(--radius-l);
+  padding:24px 26px; margin:30px 0;
+}
+.prereq-box h3{font-family:var(--font-display); font-size:1.25rem; margin-bottom:14px;}
+.prereq-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px 24px;}
+@media (max-width:640px){.prereq-grid{grid-template-columns:1fr;}}
+.prereq-item{display:flex; gap:10px; font-size:.88rem;}
+.prereq-item svg{width:16px;height:16px; flex-shrink:0; margin-top:3px; color:var(--brand-500);}
+.prereq-item strong{display:block; margin-bottom:2px;}
+.prereq-item span{color:var(--text-soft);}
+
+.family-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px; margin:20px 0 8px;}
+.family-card{background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-m); padding:16px 18px;}
+.family-card .fam-icon{width:30px;height:30px; color:var(--accent-500); margin-bottom:10px;}
+.family-card h4{font-size:.92rem; font-weight:700; margin-bottom:4px;}
+.family-card p{font-size:.82rem; color:var(--text-soft);}
+
+/* ============ SECTION HEADERS / BANNER ============ */
+.demo-banner{
+  display:flex; gap:10px; align-items:flex-start;
+  background:var(--accent-100); border:1px solid var(--border); border-radius:var(--radius-m);
+  padding:14px 16px; margin-bottom:26px; font-size:.85rem; color:var(--text);
+}
+.demo-banner svg{width:17px;height:17px;flex-shrink:0;margin-top:2px;color:var(--accent-700);}
+
+/* ============ PROPERTY GRID / CARDS ============ */
+.toolbar-row{display:flex; align-items:center; gap:10px; margin-bottom:20px; flex-wrap:wrap;}
+.pill-btn{
+  padding:7px 14px; border-radius:999px; border:1px solid var(--border); background:var(--surface);
+  font-size:.82rem; font-weight:600; color:var(--text-soft);
+}
+.pill-btn.active{background:var(--brand-900); color:var(--brand-contrast); border-color:var(--brand-900);}
+.pill-btn:hover:not(.active){background:var(--surface-2);}
+
+.prop-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(270px,1fr)); gap:16px;}
+.prop-card{
+  position:relative; text-align:left; background:var(--surface); border:1px solid var(--border);
+  border-radius:var(--radius-m); padding:18px 18px 16px; border-left:3px solid var(--brand-500);
+  transition:border-color .15s ease;
+}
+.prop-card:hover{border-left-color:var(--accent-500);}
+.prop-card .cat{font-size:.68rem; text-transform:uppercase; letter-spacing:.05em; color:var(--brand-500); font-weight:700; margin-bottom:6px;}
+.prop-card h3{font-family:var(--font-display); font-size:1.12rem; font-weight:600; margin-bottom:8px; padding-right:26px;}
+.prop-card .formule-mini{font-family:var(--font-mono); font-size:.76rem; color:var(--text-soft); background:var(--surface-2); border-radius:6px; padding:6px 8px; margin-bottom:10px; overflow-x:auto; white-space:nowrap;}
+.prop-card .status-row{display:flex; align-items:center; gap:10px; font-size:.76rem; color:var(--text-faint);}
+.bookmark-btn{position:absolute; top:14px; right:14px; width:26px;height:26px; color:var(--text-faint);}
+.bookmark-btn svg{width:18px;height:18px;}
+.bookmark-btn.active{color:var(--accent-500);}
+.understood-chip{display:inline-flex; align-items:center; gap:4px; color:var(--good);}
+.understood-chip svg{width:13px;height:13px;}
+.fictif-badge{
+  display:inline-block; font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.04em;
+  color:var(--accent-700); background:var(--accent-100); border-radius:5px; padding:2px 6px; margin-left:8px; vertical-align:middle;
+}
+
+/* ============ PROPERTY DETAIL ============ */
+.prop-header{display:flex; align-items:flex-start; justify-content:space-between; gap:16px; margin-bottom:6px;}
+.prop-header h1{font-family:var(--font-display); font-size:1.9rem; font-weight:600;}
+.prop-actions{display:flex; gap:8px; flex-shrink:0;}
+.action-btn{
+  display:flex; align-items:center; gap:6px; padding:8px 13px; border-radius:999px; border:1px solid var(--border);
+  font-size:.8rem; font-weight:600; background:var(--surface); color:var(--text-soft);
+}
+.action-btn svg{width:15px;height:15px;}
+.action-btn:hover{background:var(--surface-2);}
+.action-btn.on{background:var(--brand-900); color:var(--brand-contrast); border-color:var(--brand-900);}
+
+.step-block{margin:38px 0;}
+.step-head{display:flex; align-items:baseline; gap:10px; margin-bottom:14px;}
+.step-num{font-family:var(--font-mono); font-size:.78rem; color:var(--accent-500); font-weight:600;}
+.step-title{font-family:var(--font-display); font-size:1.32rem; font-weight:600;}
+
+.lang-pair{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+@media (max-width:760px){.lang-pair{grid-template-columns:1fr;}}
+.lang-block{background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-m); padding:16px 18px;}
+.lang-block.fr{border-top:3px solid var(--brand-500);}
+.lang-block.tn{border-top:3px solid var(--accent-500);}
+.lang-label{font-size:.7rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--text-faint); margin-bottom:8px;}
+.lang-block.tn .lang-label{text-align:right;}
+.lang-block p{font-size:.92rem;}
+
+.formula-box{
+  background:var(--brand-900); color:var(--brand-contrast); border-radius:var(--radius-l);
+  padding:26px 26px 22px; margin:18px 0; position:relative; overflow:hidden;
+  background-image:
+    linear-gradient(var(--brand-900),var(--brand-900)),
+    repeating-linear-gradient(0deg, rgba(243,231,181,0.05) 0 1px, transparent 1px 26px),
+    repeating-linear-gradient(90deg, rgba(243,231,181,0.05) 0 1px, transparent 1px 26px);
+}
+.formula-expr{font-family:var(--font-mono); font-size:1.18rem; font-weight:500; letter-spacing:.01em; line-height:1.6; word-break:break-word;}
+.formula-copy{
+  position:absolute; top:16px; right:16px; display:flex; align-items:center; gap:5px;
+  font-size:.72rem; color:rgba(243,231,181,0.75); border:1px solid rgba(243,231,181,0.25); border-radius:999px; padding:5px 10px;
+}
+.formula-copy:hover{background:rgba(243,231,181,0.1);}
+.formula-copy svg{width:12px;height:12px;}
+.facteurs-legend{display:flex; flex-direction:column; gap:6px; margin-top:16px; font-size:.86rem; color:rgba(243,231,181,0.82);}
+.facteurs-legend .fl-row{display:flex; gap:8px;}
+.facteurs-legend .fl-sym{font-family:var(--font-mono); font-weight:600; color:var(--accent-300); flex-shrink:0;}
+
+.origin-flow{display:flex; flex-direction:column; gap:0; margin:16px 0;}
+.origin-step{
+  background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-m);
+  padding:13px 16px; font-size:.9rem; position:relative;
+}
+.origin-arrow{display:flex; justify-content:center; padding:4px 0; color:var(--accent-500);}
+.origin-arrow svg{width:16px;height:16px;}
+.origin-result{
+  margin-top:4px; background:var(--accent-100); border:1px solid var(--border); border-radius:var(--radius-m);
+  padding:13px 16px; font-family:var(--font-mono); font-size:.92rem; font-weight:600; color:var(--accent-700);
+}
+
+.factor-detail{border:1px solid var(--border); border-radius:var(--radius-m); margin-bottom:12px; overflow:hidden;}
+.factor-detail summary{
+  list-style:none; cursor:pointer; padding:14px 18px; font-weight:600; font-size:.95rem;
+  display:flex; align-items:center; justify-content:space-between; background:var(--surface);
+}
+.factor-detail summary::-webkit-details-marker{display:none;}
+.factor-detail summary .chev{width:16px;height:16px; color:var(--text-faint); transition:transform .2s ease; flex-shrink:0;}
+.factor-detail[open] summary .chev{transform:rotate(180deg);}
+.factor-body{padding:4px 18px 18px; display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+@media (max-width:760px){.factor-body{grid-template-columns:1fr;}}
+.factor-mini-grid{display:grid; grid-template-columns:auto 1fr; gap:4px 10px; font-size:.84rem;}
+.factor-mini-grid dt{color:var(--text-faint); font-weight:600;}
+.factor-mini-grid dd{margin:0; color:var(--text);}
+.impact-row{display:flex; gap:14px; margin-top:8px;}
+.impact-chip{font-size:.78rem; padding:4px 9px; border-radius:6px; display:flex; align-items:center; gap:4px;}
+.impact-chip.up{background:var(--good-100); color:var(--good);}
+.impact-chip.down{background:var(--bad-100); color:var(--bad);}
+
+.calc-example{background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-l); padding:22px 24px; margin:16px 0;}
+.calc-data{display:flex; flex-wrap:wrap; gap:10px; margin-bottom:18px;}
+.calc-data span{background:var(--surface-2); border-radius:8px; padding:8px 12px; font-size:.85rem; font-family:var(--font-mono);}
+.calc-step{display:flex; gap:12px; padding:10px 0; border-top:1px solid var(--border);}
+.calc-step:first-of-type{border-top:none;}
+.calc-step .cs-title{font-weight:600; font-size:.86rem; min-width:190px;}
+.calc-step .cs-content{font-family:var(--font-mono); font-size:.88rem; color:var(--text-soft);}
+.calc-result{
+  margin-top:16px; display:flex; align-items:center; gap:10px; background:var(--good-100); color:var(--good);
+  border-radius:var(--radius-m); padding:14px 18px; font-weight:700; font-family:var(--font-mono); font-size:1.05rem;
+}
+
+.interp-box{background:var(--surface-2); border-radius:var(--radius-l); padding:22px 24px; margin:16px 0;}
+.interp-flags{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px;}
+@media (max-width:760px){.interp-flags{grid-template-columns:1fr;}}
+.flag-card{border-radius:var(--radius-m); padding:14px 16px; font-size:.86rem;}
+.flag-card.good{background:var(--good-100); color:var(--text);}
+.flag-card.bad{background:var(--bad-100); color:var(--text);}
+.flag-card strong{display:block; margin-bottom:4px; font-size:.8rem; text-transform:uppercase; letter-spacing:.03em;}
+
+.flag-card.neu{background:var(--surface); border:1px solid var(--border);}
+.chat-attach{width:42px;height:42px;border-radius:999px;border:1px solid var(--border);color:var(--text-soft);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.chat-attach:hover{background:var(--surface-2);}
+.chat-attach svg{width:18px;height:18px;}
+.tn-answer{margin-top:10px;padding-top:10px;border-top:1px dashed var(--border-strong);}
+.errors-box{background:var(--warn-100); border-radius:var(--radius-l); padding:20px 24px; margin:16px 0;}
+.errors-box h4{display:flex; align-items:center; gap:8px; color:var(--warn-600); font-size:.95rem; margin-bottom:12px;}
+.errors-box h4 svg{width:17px;height:17px;}
+.errors-box ul{list-style:none; display:flex; flex-direction:column; gap:8px;}
+.errors-box li{display:flex; gap:8px; font-size:.87rem;}
+.errors-box li::before{content:'✕'; color:var(--warn-600); font-weight:700; flex-shrink:0;}
+
+/* ============ EXERCICES ============ */
+.level-tabs{display:flex; gap:8px; margin-bottom:22px; flex-wrap:wrap;}
+.level-tab{padding:9px 16px; border-radius:999px; border:1px solid var(--border); background:var(--surface); font-size:.84rem; font-weight:600;}
+.level-tab.active{background:var(--brand-900); color:var(--brand-contrast); border-color:var(--brand-900);}
+.exo-card{background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-l); padding:26px 28px; margin-bottom:20px;}
+.exo-meta{font-size:.72rem; text-transform:uppercase; letter-spacing:.05em; color:var(--brand-500); font-weight:700; margin-bottom:8px;}
+.exo-statement{font-size:.98rem; margin-bottom:18px;}
+.exo-actions{display:flex; flex-wrap:wrap; gap:10px; margin-bottom:6px;}
+.exo-btn{
+  padding:9px 15px; border-radius:var(--radius-s); border:1px solid var(--border-strong);
+  font-size:.82rem; font-weight:600; background:var(--surface);
+}
+.exo-btn:hover{background:var(--surface-2);}
+.exo-btn:disabled{opacity:.4; cursor:not-allowed;}
+.exo-reveal{margin-top:16px; display:flex; flex-direction:column; gap:12px;}
+.exo-reveal .rev-block{background:var(--surface-2); border-radius:var(--radius-m); padding:14px 16px; font-size:.9rem; animation:fadein .3s ease;}
+.exo-reveal .rev-block h5{font-size:.76rem; text-transform:uppercase; letter-spacing:.04em; color:var(--text-faint); margin-bottom:6px;}
+.exo-placeholder{background:var(--surface-2); border:1px dashed var(--border-strong); border-radius:var(--radius-l); padding:24px; text-align:center; color:var(--text-faint); font-size:.88rem;}
+
+/* ============ INTERPRETATION VIEW ============ */
+.principle-row{display:flex; gap:16px; align-items:flex-start; padding:16px 0; border-bottom:1px solid var(--border);}
+.principle-row:last-child{border-bottom:none;}
+.principle-icon{width:34px;height:34px; border-radius:999px; background:var(--brand-100); color:var(--brand-500); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+.principle-icon svg{width:17px;height:17px;}
+.principle-row h4{font-size:.94rem; font-weight:700; margin-bottom:4px;}
+.principle-row p{font-size:.86rem; color:var(--text-soft);}
+.chain-flow{display:flex; align-items:stretch; gap:0; margin:24px 0; flex-wrap:wrap;}
+.chain-step{flex:1; min-width:150px; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-m); padding:16px; text-align:center;}
+.chain-step .cl{font-size:.68rem; text-transform:uppercase; letter-spacing:.05em; color:var(--text-faint); margin-bottom:6px;}
+.chain-step .cv{font-family:var(--font-mono); font-size:.9rem; font-weight:600;}
+.chain-sep{display:flex; align-items:center; justify-content:center; width:34px; color:var(--accent-500);}
+.chain-sep svg{width:16px;height:16px;}
+@media (max-width:700px){.chain-flow{flex-direction:column;} .chain-sep{width:auto; transform:rotate(90deg); padding:2px 0;}}
+
+/* ============ ASSISTANT IA ============ */
+.chat-shell{background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-l); display:flex; flex-direction:column; height:min(620px,70vh);}
+.chat-log{flex:1; overflow-y:auto; padding:22px 24px; display:flex; flex-direction:column; gap:16px;}
+.chat-msg{max-width:82%; font-size:.92rem; line-height:1.55;}
+.chat-msg.user{align-self:flex-end; background:var(--brand-900); color:var(--brand-contrast); border-radius:16px 16px 4px 16px; padding:10px 15px;}
+.chat-msg.ai{align-self:flex-start; background:var(--surface-2); border-radius:16px 16px 16px 4px; padding:12px 16px;}
+.chat-msg.ai p{margin-bottom:8px;}
+.chat-msg.ai p:last-child{margin-bottom:0;}
+.chat-msg.system{align-self:center; font-size:.8rem; color:var(--text-faint); text-align:center; max-width:90%;}
+.suggest-row{display:flex; flex-wrap:wrap; gap:8px; padding:0 24px 16px;}
+.suggest-chip{font-size:.78rem; padding:7px 12px; border-radius:999px; border:1px solid var(--border); background:var(--surface-2); color:var(--text-soft);}
+.suggest-chip:hover{background:var(--brand-100);}
+.chat-input-row{display:flex; gap:10px; padding:16px 20px; border-top:1px solid var(--border);}
+.chat-input{flex:1; padding:11px 16px; border-radius:999px; border:1px solid var(--border); background:var(--bg);}
+.chat-input:focus{outline:2px solid var(--accent-500); outline-offset:1px;}
+.chat-send{width:42px;height:42px; border-radius:999px; background:var(--brand-900); color:var(--brand-contrast); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+.chat-send:disabled{opacity:.4;}
+.chat-send svg{width:17px;height:17px;}
+.typing-dots span{display:inline-block; width:5px;height:5px; border-radius:50%; background:var(--text-faint); margin-right:3px; animation:blink 1.2s infinite;}
+.typing-dots span:nth-child(2){animation-delay:.2s;} .typing-dots span:nth-child(3){animation-delay:.4s;}
+@keyframes blink{0%,80%,100%{opacity:.25;} 40%{opacity:1;}}
+
+/* ============ REVISION ============ */
+.rev-mode-row{display:flex; gap:10px; margin-bottom:24px; flex-wrap:wrap;}
+.rev-mode-btn{flex:1; min-width:150px; padding:16px; border-radius:var(--radius-m); border:1px solid var(--border); background:var(--surface); text-align:left;}
+.rev-mode-btn.active{border-color:var(--brand-500); background:var(--brand-100);}
+.rev-mode-btn strong{display:block; font-size:.92rem; margin-bottom:3px;}
+.rev-mode-btn span{font-size:.78rem; color:var(--text-soft);}
+.rev-card{background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-m); padding:18px 20px; margin-bottom:14px;}
+.rev-card h4{font-family:var(--font-display); font-size:1.08rem; margin-bottom:10px;}
+.rev-mini-row{display:flex; gap:8px; font-size:.78rem; color:var(--text-faint); margin-bottom:4px;}
+.rev-mini-row b{color:var(--text); font-weight:600;}
+
+/* ============ GLOSSAIRE ============ */
+.glossary-item{border-bottom:1px solid var(--border); padding:18px 0;}
+.glossary-item:first-child{padding-top:0;}
+.glossary-head{display:flex; align-items:baseline; gap:10px; margin-bottom:6px;}
+.glossary-head h3{font-family:var(--font-display); font-size:1.15rem;}
+.glossary-formula{font-family:var(--font-mono); font-size:.82rem; color:var(--text-soft); background:var(--surface-2); display:inline-block; padding:4px 8px; border-radius:6px; margin-top:6px;}
+.glossary-links{margin-top:8px; font-size:.8rem;}
+.glossary-links a{color:var(--brand-500); font-weight:600;}
+
+/* ============ GENERIC / UTILITIES ============ */
+.two-col{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+@media (max-width:700px){.two-col{grid-template-columns:1fr;}}
+.small-note{font-size:.78rem; color:var(--text-faint); margin-top:6px;}
+.toast{
+  position:fixed; bottom:22px; left:50%; transform:translateX(-50%) translateY(8px);
+  background:var(--brand-900); color:var(--brand-contrast); padding:10px 18px; border-radius:999px;
+  font-size:.84rem; opacity:0; pointer-events:none; transition:opacity .25s ease, transform .25s ease; z-index:100;
+}
+.toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+
+.icon-btn.hamburger{display:none;}
+.drawer-overlay{display:none;}
+
+/* ============ MOBILE ============ */
+@media (max-width:900px){
+  .sidebar{
+    position:fixed; z-index:50; left:0; top:0; height:100%; width:78%; max-width:300px;
+    transform:translateX(-100%); transition:transform .25s ease; box-shadow:var(--shadow-2);
+  }
+  .sidebar.open{transform:translateX(0);}
+  .icon-btn.hamburger{display:flex;}
+  .drawer-overlay{
+    display:none; position:fixed; inset:0; background:rgba(33,44,2,0.45); z-index:40;
+  }
+  .drawer-overlay.open{display:block;}
+  .content{padding:24px 18px 70px;}
+  .search-wrap{max-width:none;}
+  .prop-header{flex-direction:column;}
+  .hero h1{font-size:1.9rem;}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="brand"><svg class="logo-svg" viewBox="130 90 660 520" role="img" aria-label="Diagnostic Finance Conseil"><defs>
+<linearGradient id="lgBar" x1="0" y1="0" x2="1" y2="0.6"><stop offset="0" stop-color="#B8933F"/><stop offset=".3" stop-color="#F5E6A2"/><stop offset=".55" stop-color="#D9BC5E"/><stop offset=".8" stop-color="#F0DC93"/><stop offset="1" stop-color="#A9822F"/></linearGradient>
+<linearGradient id="lgTxt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FBF1C4"/><stop offset="1" stop-color="#E2C97A"/></linearGradient>
+<linearGradient id="lgWave" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FFFDF3"/><stop offset="1" stop-color="#F5E6A2"/></linearGradient>
+</defs>
+<rect x="300" y="270" width="77" height="128" fill="url(#lgBar)"/>
+<rect x="413" y="173" width="82" height="225" fill="url(#lgBar)"/>
+<rect x="527" y="103" width="83" height="295" fill="url(#lgBar)"/>
+<rect x="298" y="422" width="314" height="21" fill="url(#lgBar)"/>
+<path d="M452,346 C500,372 570,368 612,326" fill="none" stroke="#E2C97A" stroke-width="7" stroke-linecap="round"/>
+<path d="M262,355 C320,322 392,318 452,338 C500,354 560,356 600,320 C625,298 640,270 648,238 C630,300 600,350 540,364 C490,376 430,362 380,350 C340,342 300,340 262,355 Z" fill="url(#lgWave)" stroke="#212C02" stroke-width="5" paint-order="stroke"/>
+<text x="148" y="538" font-family="'Work Sans','Arial Black',Arial,sans-serif" font-weight="700" font-size="78" textLength="622" lengthAdjust="spacing" fill="url(#lgTxt)">DIAGNOSTIC</text>
+<text x="207" y="588" font-family="'Work Sans',Arial,sans-serif" font-weight="600" font-size="36" textLength="503" lengthAdjust="spacing" fill="#E2C97A">FINANCE CONSEIL</text>
+</svg></div>
+
+    <ul class="nav-list" id="navList">
+      <li class="nav-item"><button class="nav-btn" data-view="intro"><span class="nav-num">01</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l8 4v5c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V7l8-4z"/></svg>Introduction</button></li>
+      <li class="nav-item"><button class="nav-btn" data-view="notions"><span class="nav-num">02</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19.5V5a2 2 0 012-2h11a1 1 0 011 1v14"/><path d="M4 19.5A2.5 2.5 0 006.5 22H19"/><path d="M8 7h7M8 11h7"/></svg>Notions &amp; Formules</button></li>
+            <li class="nav-item"><button class="nav-btn" data-view="interpretation"><span class="nav-num">03</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg>Interprétation</button></li>
+      <li class="nav-item"><button class="nav-btn" data-view="assistant"><span class="nav-num">04</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>Assistant IA</button></li>
+      <li class="nav-item"><button class="nav-btn" data-view="revision"><span class="nav-num">05</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12a9 9 0 109-9 9.75 9.75 0 00-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></svg>Mode Révision</button></li>
+      <li class="nav-item"><button class="nav-btn" data-view="glossaire"><span class="nav-num">06</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>Glossaire</button></li>
+    </ul>
+
+    <div class="sidebar-foot">
+      <div class="progress-mini" id="progressLabel">0 notion comprise sur 0</div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+    </div>
+  </aside>
+
+  <div class="main-col">
+    <header class="topbar">
+      <button class="icon-btn hamburger" id="hamburgerBtn" aria-label="Ouvrir le menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+      <div class="search-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input type="text" class="search-input" id="searchInput" placeholder="Chercher une notion, un ratio, un terme…">
+        <div class="search-results" id="searchResults"></div>
+      </div>
+      <div class="topbar-actions">
+        <button class="icon-btn" id="themeToggle" aria-label="Changer le thème">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" id="themeIcon"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <main class="content" id="content">
+
+      <!-- ===================== GRAND 1 — INTRODUCTION ===================== -->
+      <section class="view active" id="view-intro">
+        <div class="hero">
+          <div>
+            <div class="eyebrow">Grand 1 — Introduction</div>
+            <h1>Le diagnostic financier, c'est juste une manière de poser les bonnes questions sur une entreprise.</h1>
+            <p>Avant les formules et les calculs, comprends d'abord <em>pourquoi</em> on fait tout ça — comme un check-up, mais pour les finances d'une entreprise.</p>
+          </div>
+          <div class="hero-art">
+            <svg viewBox="0 0 260 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="20" y="20" width="220" height="180" rx="14" stroke="var(--brand-500)" stroke-width="2" opacity="0.5"/>
+              <rect x="55" y="120" width="20" height="55" rx="3" fill="var(--brand-300)"/>
+              <rect x="90" y="90" width="20" height="85" rx="3" fill="var(--brand-500)"/>
+              <rect x="125" y="60" width="20" height="115" rx="3" fill="var(--accent-500)"/>
+              <rect x="160" y="100" width="20" height="75" rx="3" fill="var(--brand-300)"/>
+              <line x1="10" y1="70" x2="250" y2="70" stroke="var(--accent-500)" stroke-width="2" stroke-dasharray="1 6"/>
+              <circle cx="250" cy="70" r="5" fill="var(--accent-500)"/>
+            </svg>
+          </div>
+        </div>
+
+        <h2 class="step-title" style="margin-bottom:14px;">Qu'est-ce que le diagnostic financier ?</h2>
+        <div class="lang-pair" style="margin-bottom:26px;">
+          <div class="lang-block fr">
+            <div class="lang-label">Français</div>
+            <p>Le diagnostic financier consiste à analyser les documents comptables d'une entreprise (bilan, compte de résultat) pour comprendre sa situation réelle : est-elle en bonne santé financière ? Peut-elle payer ses dettes ? Est-elle rentable ? C'est un peu comme un médecin qui examine des résultats d'analyses pour évaluer la santé d'un patient.</p>
+          </div>
+          <div class="lang-block tn">
+            <div class="lang-label">بالتونسي</div>
+            <p class="tn">الـ Diagnostic Financier معناها نقروا في وثائق الشركة (الميزانية، حساب النتائج) باش نفهمو وضعيتها الحقيقية: صحتها المالية باهية وإلا لا؟ تنجم تخلص ديونها؟ رابحة وإلا خاسرة؟ بالضبط كيف طبيب يشوف نتائج التحاليل باش يعرف صحة المريض.</p>
+          </div>
+        </div>
+
+        <h2 class="step-title" style="margin-bottom:14px;">Pourquoi une entreprise fait un diagnostic financier ?</h2>
+        <div class="lang-pair" style="margin-bottom:26px;">
+          <div class="lang-block fr">
+            <div class="lang-label">Français</div>
+            <p>Plusieurs personnes en ont besoin : le dirigeant pour prendre des décisions, une banque avant d'accorder un prêt, un investisseur avant d'investir, ou même l'État pour vérifier la situation fiscale. Chacun cherche à répondre à une question différente à partir des mêmes chiffres.</p>
+          </div>
+          <div class="lang-block tn">
+            <div class="lang-label">بالتونسي</div>
+            <p class="tn">برشا ناس محتاجينها: المدير باش ياخذ قرارات، البنك قبل ما يعطي قرض، مستثمر قبل ما يدخل فلوسه، وحتى الدولة باش تتأكد من الوضعية الجبائية. كل واحد عندو سؤال مختلف، لكن يستعملو نفس الأرقام.</p>
+          </div>
+        </div>
+
+        <h3 class="step-title" style="font-size:1.15rem; margin-bottom:14px;">Les grandes familles d'analyse</h3>
+        <div class="family-grid">
+          <div class="family-card">
+            <svg class="fam-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            <h4>Analyse de la structure</h4>
+            <p>Comment sont financés les biens de l'entreprise (fonds propres, dettes) ?</p>
+          </div>
+          <div class="family-card">
+            <svg class="fam-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg>
+            <h4>Analyse de la rentabilité</h4>
+            <p>L'entreprise gagne-t-elle assez d'argent par rapport à ce qu'elle utilise ?</p>
+          </div>
+          <div class="family-card">
+            <svg class="fam-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            <h4>Analyse de la liquidité</h4>
+            <p>Peut-elle payer ses dettes proches avec ce qu'elle a sous la main ?</p>
+          </div>
+          <div class="family-card">
+            <svg class="fam-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4h16v16H4z"/><path d="M4 9h16M9 4v16"/></svg>
+            <h4>Analyse de l'activité</h4>
+            <p>À quelle vitesse l'entreprise transforme-t-elle ses stocks et créances en argent ?</p>
+          </div>
+        </div>
+
+        <div class="prereq-box">
+          <h3>Avant de commencer : ce qu'il faut absolument comprendre</h3>
+          <div class="prereq-grid">
+            <div class="prereq-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+              <div><strong>Le bilan</strong><span>Une photo de ce que l'entreprise possède (actif) et de ce qu'elle doit (passif), à un instant donné.</span></div>
+            </div>
+            <div class="prereq-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+              <div><strong>Le compte de résultat</strong><span>Un film de l'activité sur une période : les produits (ce qui entre) et les charges (ce qui sort).</span></div>
+            </div>
+            <div class="prereq-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+              <div><strong>Circulant vs immobilisé</strong><span>Court terme (moins d'un an) contre long terme — cette séparation revient dans presque toutes les formules.</span></div>
+            </div>
+            <div class="prereq-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+              <div><strong>Un ratio, c'est une comparaison</strong><span>Un ratio = une division entre deux éléments, pour obtenir un chiffre facile à comparer dans le temps ou entre entreprises.</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout">
+          <h4>Exemple de la vie réelle</h4>
+          <p>Imagine que tu dois prêter de l'argent à un ami. Avant, tu regardes s'il a déjà des dettes, s'il gagne de quoi te rembourser, et s'il gère bien son argent. Une banque fait exactement la même chose avec une entreprise — sauf qu'elle utilise le bilan et des ratios au lieu de la confiance.</p>
+        </div>
+      </section>
+
+      <!-- ===================== GRAND 2 — NOTIONS ET PROPRIÉTÉS ===================== -->
+      <section class="view" id="view-notions">
+        <div class="eyebrow">Grand 2 — Notions &amp; Formules</div>
+        <h1 class="view-title">Chaque formule, décortiquée.</h1>
+        <p class="view-lede">Clique sur une notion pour voir d'où vient la formule, ce que représente chaque facteur, un exemple chiffré et comment interpréter le résultat.</p>
+
+        <div class="demo-banner">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>
+          <div>Les ratios du cours sont ajoutés. La <strong>CAF</strong> reste un exemple fictif (badge « Exemple »).</div>
+        </div>
+
+        <div class="toolbar-row">
+          <button class="pill-btn active" data-filter="all">Toutes</button>
+          <button class="pill-btn" data-filter="favoris">★ Mes favoris</button>
+          <button class="pill-btn" data-filter="compris">✓ Comprises</button>
+        </div>
+
+        <div class="prop-grid" id="propGrid"></div>
+      </section>
+
+      <!-- ===================== PROPERTY DETAIL (dynamic) ===================== -->
+      <section class="view" id="view-property">
+        <button class="back-btn" data-back="notions">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+          Retour aux notions
+        </button>
+        <div id="propertyDetail"></div>
+      </section>
+
+      <!-- ===================== GRAND 4 — INTERPRETATION ===================== -->
+      <section class="view" id="view-interpretation">
+        <div class="eyebrow">Grand 4 — Interprétation financière</div>
+        <h1 class="view-title">Savoir calculer un ratio, ce n'est pas savoir l'expliquer.</h1>
+        <p class="view-lede">Voici comment raisonner face à un résultat, même quand la réponse « bonne ou mauvaise » dépend du contexte.</p>
+
+        <div style="margin-bottom:30px;">
+          <div class="principle-row">
+            <div class="principle-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l6-6 4 4 8-8"/></svg></div>
+            <div><h4>Si le résultat augmente</h4><p>Cela ne veut pas toujours dire « mieux ». Pour un ratio de liquidité ou de rentabilité, une hausse est en général positive. Pour un ratio d'endettement, une hausse est en général un signal d'alerte.</p></div>
+          </div>
+          <div class="principle-row">
+            <div class="principle-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7l6 6 4-4 8 8"/></svg></div>
+            <div><h4>Si le résultat diminue</h4><p>Regarde toujours ce que mesure le ratio avant de conclure. Une baisse du besoin en fonds de roulement, par exemple, est souvent une bonne nouvelle — contrairement à une baisse de rentabilité.</p></div>
+          </div>
+          <div class="principle-row">
+            <div class="principle-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4M12 16h.01"/><circle cx="12" cy="12" r="9"/></svg></div>
+            <div><h4>Positif ou négatif</h4><p>Un résultat négatif (comme une CAF négative) est presque toujours un signal préoccupant : l'entreprise ne génère pas assez de ressources par elle-même.</p></div>
+          </div>
+          <div class="principle-row">
+            <div class="principle-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"/></svg></div>
+            <div><h4>Quand ça dépend du contexte</h4><p>Le secteur d'activité, la taille de l'entreprise et l'évolution dans le temps changent souvent la lecture d'un même chiffre. Il n'existe pas toujours une règle absolue — et il ne faut jamais en inventer une.</p></div>
+          </div>
+        </div>
+
+        <h3 class="step-title" style="font-size:1.15rem; margin-bottom:16px;">Exemple de raisonnement complet</h3>
+        <div class="chain-flow">
+          <div class="chain-step"><div class="cl">Calcul</div><div class="cv">45 000 / 30 000</div></div>
+          <div class="chain-sep"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+          <div class="chain-step"><div class="cl">Résultat</div><div class="cv">1,5</div></div>
+          <div class="chain-sep"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+          <div class="chain-step"><div class="cl">Interprétation</div><div class="cv" style="font-size:.78rem;">Bonne couverture des dettes courtes</div></div>
+          <div class="chain-sep"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+          <div class="chain-step"><div class="cl">Conclusion</div><div class="cv" style="font-size:.78rem;">Situation de liquidité saine</div></div>
+        </div>
+      </section>
+
+      <!-- ===================== GRAND 5 — ASSISTANT IA ===================== -->
+      <section class="view" id="view-assistant">
+        <div class="eyebrow">Grand 5 — Ask AI</div>
+        <h1 class="view-title">Assistant Diagnostic Financier</h1>
+        <p class="view-lede">Pose une question librement — en français ou en tunisien. L'assistant explique, ne se contente pas de donner la réponse.</p>
+
+        <div class="chat-shell">
+          <div class="chat-log" id="chatLog"></div>
+          <div class="suggest-row" id="suggestRow"></div>
+          <div class="small-note" id="attachInfo" style="padding:0 24px 8px;"></div><div class="chat-input-row"><button class="chat-attach" id="chatAttach" aria-label="Joindre une photo ou un PDF"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 11l-9 9a5 5 0 01-7-7l9-9a3.5 3.5 0 015 5l-9 9a2 2 0 01-3-3l8-8"/></svg></button><input type="file" id="chatFile" accept="image/*,application/pdf" hidden>
+            <input type="text" class="chat-input" id="chatInput" placeholder="Écris ta question ici…">
+            <button class="chat-send" id="chatSend" aria-label="Envoyer">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== GRAND 6 — REVISION ===================== -->
+      <section class="view" id="view-revision">
+        <div class="eyebrow">Grand 6 — Mode Révision</div>
+        <h1 class="view-title">Révise à ton rythme.</h1>
+        <p class="view-lede">Choisis ton mode selon le temps que tu as.</p>
+
+        <div class="rev-mode-row" id="revModeRow">
+          <button class="rev-mode-btn active" data-mode="5min"><strong>Je révise en 5 minutes</strong><span>Fiche ultra-courte, l'essentiel seulement</span></button>
+          <button class="rev-mode-btn" data-mode="comprendre"><strong>Je veux comprendre</strong><span>Version détaillée, avec les explications</span></button>
+        </div>
+
+        <div id="revContent"></div>
+      </section>
+
+      <!-- ===================== GRAND 7 — GLOSSAIRE ===================== -->
+      <section class="view" id="view-glossaire">
+        <div class="eyebrow">Grand 7 — Glossaire</div>
+        <h1 class="view-title">Les mots du Diagnostic Financier.</h1>
+        <p class="view-lede">Utilise la barre de recherche en haut de la page pour retrouver un terme rapidement.</p>
+        <div id="glossaryList"></div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+"use strict";
+
+/* ============================================================
+   DONNÉES — à remplacer / compléter avec les vraies propriétés
+   du cours. Chaque propriété suit exactement le même schéma :
+   ajouter un objet ici suffit pour qu'il apparaisse partout
+   dans le site (grille, détail, révision, exercices).
+   ============================================================ */
+
+const PROPRIETES = [
+  {
+    id: 'liquidite-generale',
+    fictif: true,
+    categorie: 'Liquidité',
+    nom: 'Ratio de Liquidité Générale',
+    aQuoiCaSert: {
+      fr: "Ce ratio mesure la capacité de l'entreprise à payer ses dettes à court terme (moins d'un an) en utilisant tout ce qu'elle peut transformer en argent rapidement : stocks, créances, disponibilités. En clair : est-ce que l'entreprise peut faire face à ce qu'elle doit payer bientôt ?",
+      tn: "بالمعنى البسيط، هالمؤشر يعاوننا نعرفو إذا الشركة تنجم تخلص الديون التاعها اللي لازمها تخلصهم في أقل من سنة، بفلوس وإلا بحاجات تنجم تتحول لفلوس بسرعة. يعني: عندها باش تخلص وإلا لا؟"
+    },
+    formule: {
+      expression: "Liquidité Générale = Actif Circulant / Passif Circulant",
+      facteurs: [
+        {symbole:'Actif Circulant', description:"Tout ce que l'entreprise possède et qui se transforme en argent en moins d'un an (stocks, créances clients, disponibilités)."},
+        {symbole:'Passif Circulant', description:"Tout ce que l'entreprise doit payer en moins d'un an (fournisseurs, dettes fiscales, découverts bancaires…)."}
+      ]
+    },
+    origine: {
+      fr: [
+        "Le bilan sépare toujours ce qui est à court terme (moins d'un an) de ce qui est à long terme.",
+        "Pour savoir si l'entreprise peut payer ses dettes proches, on compare ce qu'elle peut récupérer vite (Actif Circulant) à ce qu'elle doit payer vite (Passif Circulant).",
+        "On met les deux sous forme de rapport (division) pour obtenir un chiffre comparable, plutôt qu'une simple différence en dinars."
+      ],
+      tn: "الميزانية دايما تفرّق بين اللي قصير المدى (أقل من سنة) واللي طويل المدى. باش نعرفو إذا الشركة تنجم تخلص اللي عليها قريب، نقارنو شنية تنجم تحول لفلوس بسرعة (Actif Circulant) بالنسبة لشنية لازمها تخلص بسرعة (Passif Circulant). نقسمو وحدة على الأخرى باش يطلعلنا رقم سهل للمقارنة.",
+      resultat: "Actif Circulant / Passif Circulant"
+    },
+    facteursDetail: [
+      {
+        nom: 'Actif Circulant',
+        fr: {definition:"Ensemble des éléments de l'actif qui se transforment en argent en moins d'un an.", role:"Représente ce que l'entreprise peut mobiliser rapidement pour payer ses dettes.", pourquoi:"Il apparaît au numérateur : c'est la ressource disponible pour rembourser."},
+        tn: {definition:"كل شي في الشركة يتحول لفلوس في أقل من سنة.", role:"يمثل شنية تنجم الشركة تستعملها بسرعة باش تخلص.", pourquoi:"موجود فوق (البسط) خاطر هو اللي يعاون على الخلاص."}
+      },
+      {
+        nom: 'Passif Circulant',
+        fr: {definition:"Ensemble des dettes que l'entreprise doit rembourser en moins d'un an.", role:"Représente ce que l'entreprise doit payer prochainement.", pourquoi:"Il apparaît au dénominateur : c'est la référence à laquelle on compare les ressources."},
+        tn: {definition:"الديون اللي الشركة لازمها تخلصهم في أقل من سنة.", role:"يمثل شنية لازم الشركة تخلص قريب.", pourquoi:"موجود تحت (المقام) خاطر هو المرجع اللي نقارنو بيه."}
+      }
+    ],
+    exempleNumerique: {
+      donnees: [{label:'Actif Circulant', valeur:'45 000 DT'}, {label:'Passif Circulant', valeur:'30 000 DT'}],
+      etapes: [
+        {titre:'Étape 1 — Identifier les masses', contenu:'Actif Circulant = 45 000 DT ; Passif Circulant = 30 000 DT'},
+        {titre:'Étape 2 — Appliquer la formule', contenu:'45 000 / 30 000'},
+        {titre:'Étape 3 — Calculer', contenu:'= 1,5'}
+      ],
+      resultat: '1,5'
+    },
+    interpretation: {
+      fr: "Un résultat de 1,5 signifie que l'entreprise possède 1,5 DT d'actif circulant pour chaque dinar de dette à court terme : elle peut largement couvrir ses dettes proches.",
+      tn: "نتيجة 1,5 تعني إلي على كل دينار دين قصير المدى، عند الشركة 1,5 دينار تنجم تحوّلهم لفلوس — يعني قادرة تخلص بلا مشاكل.",
+      favorable: "Un ratio supérieur à 1 est en général rassurant. Entre 1 et 1,5, la situation est souvent jugée saine.",
+      defavorable: "Un ratio trop élevé (par exemple supérieur à 2) n'est pas forcément positif : cela peut signifier que l'entreprise garde trop de stocks ou de créances inutilisés au lieu de les faire travailler. Un ratio inférieur à 1 signale un risque de difficulté à payer les dettes proches."
+    },
+    erreursFrequentes: [
+      "Confondre Actif Circulant et Actif Immobilisé dans le calcul.",
+      "Oublier que le résultat doit être lu selon le secteur d'activité.",
+      "Penser qu'un ratio très élevé est toujours une bonne nouvelle."
+    ],
+    exercices: {
+      niveau1: {
+        enonce: "Une entreprise a un Actif Circulant de 60 000 DT et un Passif Circulant de 40 000 DT. Calcule le ratio de liquidité générale.",
+        donnees: "Actif Circulant = 60 000 DT · Passif Circulant = 40 000 DT",
+        etapes: ["Formule : Actif Circulant / Passif Circulant", "60 000 / 40 000 = 1,5"],
+        resultat: "1,5",
+        interpretation: "L'entreprise dispose de 1,5 DT d'actif circulant pour chaque dinar de dette court terme : couverture saine."
+      },
+      niveau2: {
+        enonce: "À partir des postes suivants, calcule d'abord l'Actif Circulant et le Passif Circulant, puis le ratio : Stocks 15 000 DT, Créances clients 20 000 DT, Disponibilités 5 000 DT, Fournisseurs 18 000 DT, Dettes fiscales 7 000 DT.",
+        donnees: "Stocks 15 000 · Créances 20 000 · Disponibilités 5 000 · Fournisseurs 18 000 · Dettes fiscales 7 000 (en DT)",
+        etapes: [
+          "Actif Circulant = 15 000 + 20 000 + 5 000 = 40 000 DT",
+          "Passif Circulant = 18 000 + 7 000 = 25 000 DT",
+          "Ratio = 40 000 / 25 000 = 1,6"
+        ],
+        resultat: "1,6",
+        interpretation: "Ratio légèrement supérieur à celui de l'exercice 1 : la couverture des dettes court terme reste saine."
+      },
+      niveau3: {
+        enonce: "Exercice type examen : une entreprise commerciale présente un Actif Circulant de 120 000 DT et un Passif Circulant de 95 000 DT. L'an dernier, son ratio était de 1,45. Calcule le ratio actuel et commente son évolution.",
+        donnees: "Actif Circulant = 120 000 DT · Passif Circulant = 95 000 DT · Ratio N-1 = 1,45",
+        etapes: [
+          "Ratio actuel = 120 000 / 95 000 ≈ 1,26",
+          "Comparaison : 1,26 < 1,45 (l'an dernier)"
+        ],
+        resultat: "≈ 1,26",
+        interpretation: "Le ratio reste supérieur à 1 (couverture toujours assurée), mais sa baisse par rapport à l'année précédente mérite d'être surveillée : cela peut venir d'une hausse des dettes court terme ou d'une baisse des stocks/créances."
+      }
+    }
+  },
+  {
+    id: 'caf',
+    fictif: true,
+    categorie: 'Rentabilité',
+    nom: 'Capacité d\u2019Autofinancement (CAF)',
+    aQuoiCaSert: {
+      fr: "La CAF mesure l'argent que l'entreprise a réellement généré grâce à son activité, qu'elle peut utiliser pour investir, rembourser ses dettes ou distribuer des dividendes — sans emprunter ni vendre de biens.",
+      tn: "الـ CAF تعاونا نعرفو قداش فلوس الشركة جابت فعلا من خدمتها، فلوس تنجم تستعملهم باش تستثمر وإلا تخلص ديون، بلا ما تقترض وإلا تبيع حاجة."
+    },
+    formule: {
+      expression: "CAF = Résultat Net + Dotations aux amortissements et provisions − Reprises sur amortissements et provisions",
+      facteurs: [
+        {symbole:'Résultat Net', description:"Le bénéfice (ou la perte) final de l'entreprise après impôt, tel qu'il apparaît dans le compte de résultat."},
+        {symbole:'Dotations', description:"Charges comptables (amortissements, provisions) qui ne correspondent à aucune sortie d'argent réelle."},
+        {symbole:'Reprises', description:"Produits comptables qui ne correspondent à aucune entrée d'argent réelle."}
+      ]
+    },
+    origine: {
+      fr: [
+        "Le Résultat Net contient des charges et des produits qui ne sont pas de vrais mouvements de caisse (l'amortissement, par exemple, est une écriture comptable, pas une sortie d'argent).",
+        "Pour connaître l'argent réellement généré, il faut retirer du résultat net les produits qui ne sont pas de l'argent réel, et ajouter les charges qui ne sont pas de vraies sorties d'argent.",
+        "On part donc du Résultat Net, on ajoute les charges non décaissables, et on retire les produits non encaissables."
+      ],
+      tn: "الرزلتا نات فيها مصاريف ومداخيل موش حقيقيين بالفلوس (مثلا الإهتلاك، هو غير كتابة محاسبية). باش نعرفو الفلوس الحقيقية، لازم نزيدو المصاريف اللي ماخرجتش فلوس فعلا، وننقصو المداخيل اللي مادخلتش فلوس فعلا.",
+      resultat: "Résultat Net + Dotations − Reprises"
+    },
+    facteursDetail: [
+      {nom:'Résultat Net', fr:{definition:"Le résultat final de l'exercice, après impôt.", role:"Point de départ du calcul de la CAF.", pourquoi:"C'est la mesure comptable la plus proche de la performance globale de l'entreprise."}, tn:{definition:"الرزلتا الأخيرة بعد الضريبة.", role:"نقطة الانطلاق لحساب الـ CAF.", pourquoi:"أقرب مقياس محاسبي لأداء الشركة ككل."}},
+      {nom:'Dotations', fr:{definition:"Charges qui constatent une perte de valeur (amortissements) ou un risque futur (provisions), sans sortie d'argent immédiate.", role:"On les ajoute car elles ont réduit le résultat net sans faire sortir d'argent.", pourquoi:"Il faut les neutraliser pour retrouver l'argent réellement généré."}, tn:{definition:"مصاريف تسجل نقصان قيمة (إهتلاك) وإلا خطر مستقبلي، بلا ما تخرج فلوس فورا.", role:"نزيدوهم خاطر نقصو من الرزلتا بلا ما يخرجو فلوس فعلا.", pourquoi:"لازم نلغيوهم باش نرجعو للفلوس الحقيقية."}},
+      {nom:'Reprises', fr:{definition:"Produits qui annulent une provision ou un amortissement passé, sans entrée d'argent réelle.", role:"On les retire car elles ont augmenté le résultat net sans faire entrer d'argent.", pourquoi:"Il faut les neutraliser pour ne pas surestimer l'argent réellement généré."}, tn:{definition:"مداخيل تلغي بروفيزيون وإلا إهتلاك قديم، بلا ما تدخل فلوس فعلا.", role:"ننقصوهم خاطر زادو في الرزلتا بلا ما يدخلو فلوس فعلا.", pourquoi:"لازم نلغيوهم باش ما نضخموش الفلوس الحقيقية."}}
+    ],
+    exempleNumerique: {
+      donnees: [{label:'Résultat Net', valeur:'20 000 DT'}, {label:'Dotations', valeur:'8 000 DT'}, {label:'Reprises', valeur:'3 000 DT'}],
+      etapes: [
+        {titre:'Étape 1 — Identifier les éléments', contenu:'Résultat Net = 20 000 · Dotations = 8 000 · Reprises = 3 000'},
+        {titre:'Étape 2 — Appliquer la formule', contenu:'20 000 + 8 000 − 3 000'},
+        {titre:'Étape 3 — Calculer', contenu:'= 25 000 DT'}
+      ],
+      resultat: '25 000 DT'
+    },
+    interpretation: {
+      fr: "Une CAF de 25 000 DT signifie que l'entreprise a généré 25 000 DT qu'elle peut utiliser librement, sans emprunter ni vendre d'actifs.",
+      tn: "الـ CAF بـ 25 000 دينار تعني إلي الشركة جابت 25 000 دينار تنجم تستعملهم بحرية، بلا ما تقترض وإلا تبيع حاجة.",
+      favorable: "Une CAF élevée et stable dans le temps montre une bonne capacité d'autofinancement des investissements et du remboursement des dettes.",
+      defavorable: "Une CAF négative est un signal préoccupant : l'activité, à elle seule, ne génère pas assez de ressources — l'entreprise dépend alors de l'emprunt ou de la vente d'actifs."
+    },
+    erreursFrequentes: [
+      "Oublier de retirer les Reprises dans le calcul.",
+      "Confondre la CAF avec la trésorerie disponible : la CAF est un potentiel, pas de l'argent déjà encaissé.",
+      "Utiliser le Résultat Net avant impôt au lieu du Résultat Net après impôt."
+    ],
+    exercices: {
+      niveau1: {
+        enonce: "Une entreprise affiche un Résultat Net de 30 000 DT, des Dotations de 6 000 DT et des Reprises de 1 000 DT. Calcule la CAF.",
+        donnees: "Résultat Net = 30 000 · Dotations = 6 000 · Reprises = 1 000 (en DT)",
+        etapes: ["CAF = 30 000 + 6 000 − 1 000", "= 35 000 DT"],
+        resultat: "35 000 DT",
+        interpretation: "L'entreprise génère une capacité d'autofinancement confortable par rapport à son résultat net."
+      }
+    }
+  }
+];
+
+/* ===== RATIOS DU COURS (tableau Les_ratios) ===== */
+(function(){
+var LG = PROPRIETES.find(function(p){return p.id==='liquidite-generale';});
+LG.fictif = false;
+LG.formule.expression = "Liquidité Générale = AC / PC";
+LG.formule.facteurs = [{symbole:'AC', description:"Actif Circulant : stocks, créances, disponibilités (moins d'un an)."},{symbole:'PC', description:"Passif Circulant : dettes à payer en moins d'un an."}];
+
+var RF = {
+ n:["Au numérateur : c'est ce qu'on mesure.","فوق (البسط): هو الحاجة اللي نقيسوها."],
+ d:["Au dénominateur : c'est la base de comparaison.","تحت (المقام): هو المرجع اللي نقارنو بيه."],
+ s:["Retranché au numérateur : on l'enlève car moins facile à transformer en argent.","ننقصوه من البسط خاطر صعيب يتحول لفلوس بسرعة."]
+};
+function mk(id,cat,nom,expr,F,sf,st,of,ot,ex,calc,res,ifr,itn,fav,def,err,xo){
+  var rhs = expr.split(' = ')[1];
+  PROPRIETES.push({
+    id:id, fictif:false, categorie:cat, nom:nom,
+    aQuoiCaSert:{fr:sf, tn:st},
+    formule:{expression:expr, facteurs:F.map(function(f){return {symbole:f[0], description:f[1]};})},
+    origine:{fr:of, tn:ot, resultat:rhs},
+    facteursDetail:F.map(function(f){
+      var r = RF[f[3]];
+      return {nom:f[0], fr:{definition:f[1], role:r[0], pourquoi:"Sans lui, le ratio n'a pas de sens."}, tn:{definition:f[2], role:r[1], pourquoi:"بلاه النسبة ما عندها معنى."}};
+    }),
+    exempleNumerique:{
+      donnees:ex.map(function(d){return {label:d[0], valeur:d[1]};}),
+      etapes:[{titre:'Étape 1 — Identifier les éléments', contenu:ex.map(function(d){return d[0]+' = '+d[1];}).join(' ; ')},
+              {titre:'Étape 2 — Appliquer la formule', contenu:calc},
+              {titre:'Étape 3 — Calculer', contenu:'= '+res}],
+      resultat:res
+    },
+    interpretation:{fr:ifr, tn:itn, favorable:fav, defavorable:def},
+    erreursFrequentes:err,
+    exercices:{niveau1:{enonce:xo[0], donnees:xo[1], etapes:['Formule : '+rhs, xo[2]+' = '+xo[3]], resultat:xo[3], interpretation:xo[4]}}
+  });
+}
+
+mk('autonomie-financiere','Structure','Autonomie Financière',
+ "Autonomie Financière = Capitaux Propres / Capitaux Permanents",
+ [['Capitaux Propres',"Argent apporté par les associés + réserves + résultats : l'argent qui appartient à l'entreprise.","فلوس الشركة الخاصة (رأس المال + الاحتياطات + الأرباح).",'n'],
+  ['Capitaux Permanents',"Capitaux Propres + dettes à long terme (ressources stables).","الأموال الخاصة + الديون الطويلة المدى (الموارد القارة).",'d']],
+ "Mesure la part des ressources stables financée par l'entreprise elle-même, sans dépendre des créanciers. Plus elle est élevée, plus l'entreprise est indépendante.",
+ "تقيس قداش من موارد الشركة القارة هي ممولاها بروحها، بلا ما تعتمد على البنوك والدائنين.",
+ ["Les ressources stables sont de deux types : propres (capitaux propres) et empruntées (dettes à long terme).","On compare la part des ressources propres à l'ensemble des ressources stables.","Une division donne un chiffre simple à comparer (souvent lu en pourcentage)."],
+ "الموارد القارة جاية من جهتين: فلوسها هي وفلوس مقترضة. نقسمو فلوسها على المجموع باش نعرفو قداش مستقلة.",
+ [['Capitaux Propres','80 000 DT'],['Capitaux Permanents','120 000 DT']],'80 000 / 120 000','0,67',
+ "0,67 : les capitaux propres financent environ 67 % des ressources stables. L'entreprise est assez indépendante.",
+ "0,67 يعني 67% من الموارد القارة فلوسها هي. الشركة مستقلة بالشكل.",
+ "Un ratio élevé (souvent au moins 0,5) montre une bonne indépendance financière.",
+ "Un ratio faible signifie une forte dépendance aux créanciers. La lecture dépend du secteur.",
+ ["Utiliser le total du passif au lieu des Capitaux Permanents.","Oublier les dettes à long terme dans les Capitaux Permanents.","Appliquer un seuil sans tenir compte du secteur."],
+ ["Capitaux Propres = 50 000 DT ; Capitaux Permanents = 100 000 DT. Calcule l'autonomie financière.","CP = 50 000 · CPerm = 100 000","50 000 / 100 000","0,5","La moitié des ressources stables vient de l'entreprise : autonomie correcte, sans plus."]);
+
+mk('solvabilite-generale','Structure','Solvabilité Générale',
+ "Solvabilité Générale = Total Actif / Total Passif (dettes)",
+ [['Total Actif',"Tout ce que l'entreprise possède.","كل ما تملكه الشركة.",'n'],
+  ['Total Passif (dettes)',"Toutes les dettes : court, moyen et long terme.","كل الديون: قصيرة وطويلة.",'d']],
+ "Mesure la capacité de l'entreprise à payer toutes ses dettes en vendant tout ce qu'elle possède. C'est le test de la garantie des créanciers.",
+ "تقيس إذا الشركة تنجم تخلص كل ديونها لو تبيع كل ما تملك. هي الضمان للدائنين.",
+ ["Un créancier se demande : si l'entreprise s'arrête, est-ce que je récupère mon argent ?","On compare donc tout ce que l'entreprise possède à tout ce qu'elle doit.","Le rapport donne un chiffre : au-dessus de 1, les biens couvrent les dettes."],
+ "الدائن يسأل: لو الشركة وقفت، نرجع فلوسي؟ نقارنو كل ما تملك بكل ما عليها. كان فوق 1، الممتلكات تغطي الديون.",
+ [['Total Actif','200 000 DT'],['Total Passif (dettes)','120 000 DT']],'200 000 / 120 000','1,67',
+ "1,67 : l'entreprise possède 1,67 DT pour chaque dinar de dette. Les créanciers sont bien protégés.",
+ "1,67 يعني على كل دينار دين، عندها 1,67 دينار ممتلكات. الدائنين مرتاحين.",
+ "Un ratio supérieur à 1 indique que les biens couvrent les dettes : bonne garantie pour les créanciers.",
+ "Un ratio inférieur à 1 signale un risque d'insolvabilité : les dettes dépassent les biens.",
+ ["Prendre les Capitaux Propres au lieu du Total Passif (dettes).","Confondre dettes et total du passif (qui inclut les capitaux propres).","Oublier que la valeur réelle des actifs peut différer du bilan."],
+ ["Total Actif = 150 000 DT ; dettes = 100 000 DT. Calcule la solvabilité générale.","Actif = 150 000 · Dettes = 100 000","150 000 / 100 000","1,5","Les biens couvrent 1,5 fois les dettes : situation rassurante."]);
+
+mk('liquidite-reduite','Liquidité','Liquidité Réduite',
+ "Liquidité Réduite = (AC − Stocks) / PC",
+ [['AC',"Actif Circulant.","الأصول المتداولة.",'n'],['Stocks',"Marchandises en stock, plus lentes à transformer en argent.","السلعة في المخزون، تتحول لفلوس بشوية.",'s'],['PC',"Passif Circulant : dettes à moins d'un an.","الديون اللي أقل من عام.",'d']],
+ "Comme la liquidité générale, mais plus prudente : on enlève les stocks, car ils sont plus difficiles à vendre rapidement.",
+ "كيف السيولة العامة، ولكن أحذر: ننقصو المخزون خاطر صعيب نبيعوه بسرعة.",
+ ["Dans la liquidité générale, les stocks comptent comme s'ils étaient de l'argent.","Or un stock doit d'abord être vendu, et parfois il ne se vend pas vite.","On les retire donc pour ne garder que créances et disponibilités."],
+ "في السيولة العامة نحسبو المخزون كيف الفلوس، وهو لازمو يتباع الأول. على هذا ننقصوه.",
+ [['AC','45 000 DT'],['Stocks','15 000 DT'],['PC','30 000 DT']],'(45 000 − 15 000) / 30 000','1',
+ "1 : sans compter les stocks, l'entreprise couvre exactement ses dettes à court terme.",
+ "1 يعني حتى بلا المخزون، الشركة تغطي ديونها القصيرة بالضبط.",
+ "Un ratio proche ou supérieur à 1 est en général rassurant.",
+ "Un ratio nettement inférieur à 1 montre une dépendance aux stocks pour payer les dettes.",
+ ["Oublier de retirer les Stocks.","Retirer aussi les créances par erreur.","Comparer sans tenir compte du secteur (commerce vs service)."],
+ ["AC = 60 000 DT ; Stocks = 20 000 DT ; PC = 32 000 DT. Calcule la liquidité réduite.","AC = 60 000 · Stocks = 20 000 · PC = 32 000","(60 000 − 20 000) / 32 000","1,25","Hors stocks, les dettes court terme restent couvertes : bonne liquidité."]);
+
+mk('liquidite-immediate','Liquidité','Liquidité Immédiate',
+ "Liquidité Immédiate = Liquidités et équivalents de liquidités / PC",
+ [['Liquidités et équivalents de liquidités',"Argent en caisse, en banque et placements très faciles à convertir.","الكاش والبنك والتوظيفات اللي تتحول لفلوس فورا.",'n'],['PC',"Passif Circulant : dettes à moins d'un an.","الديون القصيرة المدى.",'d']],
+ "Test le plus strict : l'entreprise peut-elle payer ses dettes court terme tout de suite, avec l'argent immédiatement disponible ?",
+ "هو الاختبار الأصعب: الشركة تنجم تخلص ديونها القصيرة توا بالفلوس اللي موجودة؟",
+ ["On part de la liquidité réduite et on enlève aussi les créances clients (elles ne sont pas encore encaissées).","Il reste uniquement l'argent disponible.","On le compare aux dettes à payer bientôt."],
+ "نبدأو من السيولة المختصرة وننقصو حتى ديون الحرفاء (مازالو مادخلوش). يبقى غير الكاش، نقارنوه بالديون.",
+ [['Liquidités','10 000 DT'],['PC','30 000 DT']],'10 000 / 30 000','0,33',
+ "0,33 : l'argent disponible couvre un tiers des dettes court terme.",
+ "0,33 يعني الكاش يغطي ثلث الديون القصيرة.",
+ "Un ratio trop faible risque de poser un problème si les créanciers réclament vite.",
+ "Un ratio très élevé n'est pas forcément bon : de l'argent dormant ne rapporte rien.",
+ ["Inclure les créances clients dans le numérateur.","Exiger un ratio élevé sans regarder les délais de paiement.","Confondre avec la liquidité réduite."],
+ ["Liquidités = 8 000 DT ; PC = 20 000 DT. Calcule la liquidité immédiate.","Liquidités = 8 000 · PC = 20 000","8 000 / 20 000","0,4","L'argent disponible couvre 40 % des dettes court terme : situation moyenne."]);
+
+mk('couverture-charges-financieres','Rentabilité','Couverture des Charges Financières',
+ "Couverture des Charges Financières = BAII / Charges Financières",
+ [['BAII',"Bénéfice Avant Intérêts et Impôts : ce que rapporte l'activité.","الربح قبل الفوائد والضريبة.",'n'],['Charges Financières',"Intérêts payés sur les emprunts.","الفوائد اللي تخلصهم على القروض.",'d']],
+ "Indique combien de fois le bénéfice de l'activité couvre les intérêts de la dette. Les banques le regardent beaucoup.",
+ "تعرفنا قداش مرة ربح الخدمة يغطي فوائد القروض. البنوك تشوف فيه برشا.",
+ ["L'entreprise doit payer les intérêts avant de gagner pour elle.","On compare ce que l'activité produit (BAII) à ces intérêts.","Le chiffre dit combien de fois les intérêts sont couverts."],
+ "الشركة لازم تخلص الفوائد الأول. نقارنو الربح بالفوائد باش نعرفو قداش مرة يغطيهم.",
+ [['BAII','60 000 DT'],['Charges Financières','12 000 DT']],'60 000 / 12 000','5',
+ "5 : le bénéfice d'exploitation couvre 5 fois les intérêts. Charge de la dette très supportable.",
+ "5 يعني الربح يغطي الفوائد 5 مرات. القروض ما تتعبش الشركة.",
+ "Plus le ratio est élevé, plus la dette est supportable.",
+ "Un ratio proche de 1 signifie que presque tout le bénéfice part en intérêts.",
+ ["Utiliser le Résultat Net au lieu du BAII.","Oublier que le résultat s'exprime en nombre de fois, pas en %.","Ignorer le niveau d'endettement global."],
+ ["BAII = 45 000 DT ; Charges financières = 15 000 DT. Calcule la couverture.","BAII = 45 000 · Charges fin. = 15 000","45 000 / 15 000","3","Les intérêts sont couverts 3 fois : situation confortable."]);
+
+mk('rotation-actif','Activité','Rotation de l\u2019Actif',
+ "Rotation de l'Actif = Chiffre d'Affaires HT / Total Actif Moyen",
+ [["Chiffre d'Affaires HT","Ventes de l'année hors taxes.","المبيعات في العام بلا ضريبة.",'n'],['Total Actif Moyen',"Moyenne de l'actif début et fin d'année.","معدل الأصول بين بداية ونهاية العام.",'d']],
+ "Mesure l'efficacité avec laquelle l'entreprise utilise ses actifs pour faire du chiffre d'affaires.",
+ "تقيس قداش الشركة تستغل أصولها باش تعمل مبيعات.",
+ ["Un actif sert à produire des ventes.","On compare les ventes (HT) à l'actif utilisé.","On prend l'actif moyen car il varie pendant l'année."],
+ "الأصول تستعمل باش نبيعو. نقارنو المبيعات بالأصول، ونخذو المعدل خاطر الأصول تتبدل في العام.",
+ [["CA HT",'300 000 DT'],['Actif Moyen','150 000 DT']],'300 000 / 150 000','2',
+ "2 : chaque dinar d'actif génère 2 DT de ventes.",
+ "2 يعني كل دينار أصول يعمل 2 دينار مبيعات.",
+ "Un ratio élevé montre un bon usage des actifs.",
+ "Un ratio faible peut signaler des actifs sous-utilisés. Il varie beaucoup selon le secteur.",
+ ["Utiliser le CA TTC au lieu du CA HT.","Prendre l'actif de fin d'année sans calculer la moyenne.","Comparer des secteurs très différents."],
+ ["CA HT = 240 000 DT ; Actif moyen = 160 000 DT. Calcule la rotation de l'actif.","CA HT = 240 000 · Actif moyen = 160 000","240 000 / 160 000","1,5","Chaque dinar d'actif produit 1,5 DT de ventes."]);
+
+mk('rotation-stocks','Activité','Rotation des Stocks',
+ "Rotation des Stocks = Coût d'Achat des Marchandises Vendues / Stock Moyen",
+ [["Coût d'Achat des Marchandises Vendues","Ce qu'ont coûté à l'achat les marchandises vendues.","قداش خلصنا في السلعة اللي تباعت.",'n'],['Stock Moyen',"Moyenne du stock début et fin de période.","معدل المخزون بين البداية والنهاية.",'d']],
+ "Indique combien de fois le stock est renouvelé pendant l'année. Plus il tourne vite, moins l'argent reste bloqué.",
+ "تعرفنا قداش مرة المخزون يتبدل في العام. كل ما يدور بسرعة، الفلوس ما تتعطلش.",
+ ["Un stock qui ne se vend pas immobilise de l'argent.","On compare ce qui est sorti du stock (coût d'achat vendu) à ce qui y reste en moyenne.","Le résultat est un nombre de rotations par an."],
+ "المخزون اللي ما يتباعش يعطل الفلوس. نقارنو اللي خرج من المخزون بمعدل اللي موجود.",
+ [["Coût d'achat vendu",'180 000 DT'],['Stock Moyen','30 000 DT']],'180 000 / 30 000','6',
+ "6 : le stock est renouvelé 6 fois par an, soit environ tous les 60 jours (360 / 6).",
+ "6 يعني المخزون يتبدل 6 مرات في العام، تقريبا كل 60 يوم.",
+ "Une rotation élevée montre une bonne gestion et peu d'argent immobilisé.",
+ "Une rotation trop élevée peut causer des ruptures de stock ; trop faible, un stock qui dort.",
+ ["Utiliser le chiffre d'affaires au lieu du coût d'achat des marchandises vendues.","Utiliser le stock final au lieu du stock moyen.","Comparer des secteurs différents (alimentaire vs bijouterie)."],
+ ["Coût d'achat des marchandises vendues = 200 000 DT ; Stock moyen = 40 000 DT. Calcule la rotation.","CAMV = 200 000 · Stock moyen = 40 000","200 000 / 40 000","5","Le stock tourne 5 fois par an, soit tous les 72 jours (360 / 5)."]);
+
+mk('delai-clients','Activité','Délai de Recouvrement des Créances Clients',
+ "Délai Clients = (Créances Clients / Chiffre d'Affaires TTC) × 360 jours",
+ [['Créances Clients',"Ce que les clients doivent encore à l'entreprise.","اللي مازال الحرفاء مخلصوه.",'n'],["Chiffre d'Affaires TTC","Ventes de l'année toutes taxes comprises, comparables aux créances (TTC).","المبيعات بالضريبة، خاطر الديون بالضريبة.",'d']],
+ "Mesure le nombre de jours moyen que les clients mettent à payer. Plus il est court, plus l'argent rentre vite.",
+ "تعرفنا في كم يوم في المتوسط الحرفاء يخلصو. كل ما يكون أقصر، الفلوس تدخل أسرع.",
+ ["Les créances sont en TTC, donc on les compare à un CA en TTC.","La proportion du CA encore non payé est multipliée par 360 jours.","On obtient un nombre de jours."],
+ "الديون بالضريبة، على هذا نقارنوها بالمبيعات بالضريبة. النسبة نضربوها في 360 باش يطلعلنا عدد أيام.",
+ [['Créances Clients','40 000 DT'],["CA TTC",'240 000 DT']],'40 000 / 240 000 × 360','60 jours',
+ "60 jours : les clients paient en moyenne après 2 mois.",
+ "60 يوم يعني الحرفاء يخلصو في المتوسط بعد شهرين.",
+ "Un délai court améliore la trésorerie.",
+ "Un délai long, surtout s'il dépasse le délai fournisseurs, tend la trésorerie.",
+ ["Utiliser le CA HT avec des créances TTC.","Oublier de multiplier par 360.","Ne pas comparer au délai accordé aux clients."],
+ ["Créances clients = 25 000 DT ; CA TTC = 200 000 DT. Calcule le délai de recouvrement.","Créances = 25 000 · CA TTC = 200 000","25 000 / 200 000 × 360","45 jours","Les clients paient en 45 jours en moyenne : délai raisonnable."]);
+
+mk('delai-fournisseurs','Activité','Délai de Règlement des Dettes Fournisseurs',
+ "Délai Fournisseurs = (Dettes Fournisseurs / Achats TTC) × 360 jours",
+ [['Dettes Fournisseurs',"Ce que l'entreprise doit encore à ses fournisseurs.","اللي مازالت الشركة تخلصو للموردين.",'n'],['Achats TTC',"Achats de l'année toutes taxes comprises.","المشتريات في العام بالضريبة.",'d']],
+ "Mesure le nombre de jours moyen que l'entreprise met à payer ses fournisseurs. C'est le crédit qu'ils lui accordent.",
+ "تعرفنا في كم يوم الشركة تخلص الموردين. هو القرض اللي يعطيوهولها.",
+ ["Même logique que pour les clients, mais côté dettes.","Dettes fournisseurs et achats sont en TTC.","Le rapport multiplié par 360 donne un nombre de jours."],
+ "نفس فكرة الحرفاء ولكن في جهة الديون. نضربو في 360 باش نلقاو عدد الأيام.",
+ [['Dettes Fournisseurs','30 000 DT'],['Achats TTC','360 000 DT']],'30 000 / 360 000 × 360','30 jours',
+ "30 jours : l'entreprise paie ses fournisseurs après un mois.",
+ "30 يوم يعني الشركة تخلص الموردين بعد شهر.",
+ "Un délai fournisseurs plus long que le délai clients aide la trésorerie.",
+ "Un délai trop long peut abîmer la relation avec les fournisseurs.",
+ ["Utiliser les achats HT avec des dettes TTC.","Confondre avec le délai clients (créances vs dettes).","Croire que payer plus tard est toujours positif."],
+ ["Dettes fournisseurs = 45 000 DT ; Achats TTC = 270 000 DT. Calcule le délai de règlement.","Dettes = 45 000 · Achats TTC = 270 000","45 000 / 270 000 × 360","60 jours","L'entreprise paie en 60 jours : avantageux si les clients paient plus vite."]);
+
+mk('marge-brute','Rentabilité','Marge Brute',
+ "Marge Brute (%) = (Marge Brute / Chiffre d'Affaires HT) × 100",
+ [['Marge Brute',"Ventes moins le coût d'achat des marchandises vendues.","المبيعات ناقص كلفة شراء السلعة.",'n'],["Chiffre d'Affaires HT","Ventes hors taxes.","المبيعات بلا ضريبة.",'d']],
+ "Indique la part de chaque dinar de vente qui reste après avoir payé les marchandises. C'est ce qui couvre les autres charges.",
+ "تقول قداش يبقى من كل دينار مبيعات بعد ما نخلصو ثمن السلعة.",
+ ["Sur chaque vente, une partie sert à payer la marchandise.","Ce qui reste (marge brute) doit couvrir les autres charges et laisser un bénéfice.","On le rapporte au CA en pourcentage."],
+ "من كل بيعة، جزء يمشي في ثمن السلعة. اللي يبقى لازم يغطي بقية المصاريف ويخلي ربح.",
+ [['Marge Brute','90 000 DT'],['CA HT','300 000 DT']],'90 000 / 300 000 × 100','30 %',
+ "30 % : sur 1 DT de ventes, il reste 0,30 DT après le coût des marchandises.",
+ "30% يعني من كل دينار مبيعات، يبقى 0,30 دينار.",
+ "Une marge élevée laisse plus de place pour couvrir les charges.",
+ "Une marge faible rend l'entreprise fragile. Les niveaux varient beaucoup selon le secteur.",
+ ["Confondre marge brute et résultat.","Utiliser le CA TTC.","Oublier de multiplier par 100."],
+ ["Marge brute = 56 000 DT ; CA HT = 200 000 DT. Calcule le taux de marge brute.","Marge brute = 56 000 · CA HT = 200 000","56 000 / 200 000 × 100","28 %","L'entreprise garde 28 % de chaque vente avant ses autres charges."]);
+
+mk('marge-nette','Rentabilité','Marge Nette',
+ "Marge Nette (%) = (Résultat Net / Chiffre d'Affaires HT) × 100",
+ [['Résultat Net',"Bénéfice final après toutes charges et impôt.","الربح الأخير بعد كل المصاريف والضريبة.",'n'],["Chiffre d'Affaires HT","Ventes hors taxes.","المبيعات بلا ضريبة.",'d']],
+ "Montre quelle part de chaque dinar de vente devient un bénéfice final pour l'entreprise.",
+ "تقول قداش من كل دينار مبيعات يولي ربح صافي للشركة.",
+ ["La marge brute ne tient pas compte de toutes les charges.","On prend donc le résultat final, après tout.","On le rapporte au CA pour savoir quelle part des ventes devient bénéfice."],
+ "المارج برو ما تحسبش كل المصاريف. نخذو الرزلتا الأخيرة ونقارنوها بالمبيعات.",
+ [['Résultat Net','24 000 DT'],['CA HT','300 000 DT']],'24 000 / 300 000 × 100','8 %',
+ "8 % : sur 100 DT de ventes, l'entreprise garde 8 DT de bénéfice net.",
+ "8% يعني من كل 100 دينار مبيعات، تبقى 8 دنانير ربح.",
+ "Une marge nette en hausse montre une meilleure maîtrise des charges.",
+ "Une marge nette faible ou négative signale que les charges absorbent presque tout.",
+ ["Confondre avec la marge brute.","Comparer des secteurs aux marges très différentes.","Utiliser le résultat avant impôt."],
+ ["Résultat net = 15 000 DT ; CA HT = 250 000 DT. Calcule la marge nette.","Résultat net = 15 000 · CA HT = 250 000","15 000 / 250 000 × 100","6 %","6 DT de bénéfice net pour 100 DT de ventes."]);
+
+mk('rentabilite-economique','Rentabilité','Rentabilité Économique',
+ "Rentabilité Économique (%) = (BAII / Total Actif) × 100",
+ [['BAII',"Bénéfice avant intérêts et impôts : performance de l'activité.","الربح قبل الفوائد والضريبة.",'n'],['Total Actif',"Tous les biens utilisés par l'entreprise.","كل الممتلكات اللي تخدم بيها الشركة.",'d']],
+ "Mesure ce que rapportent les actifs, indépendamment de la façon dont ils sont financés (fonds propres ou dettes).",
+ "تقيس قداش الأصول تجيب ربح، بصرف النظر كيفاش تمولت (فلوسها وإلا ديون).",
+ ["On veut juger la performance de l'activité elle-même.","On prend donc le BAII, avant les intérêts liés au financement.","On le compare à l'ensemble des actifs utilisés."],
+ "نحبو نحكمو على الخدمة بروحها، على هذا نخذو الربح قبل الفوائد ونقارنوه بالأصول كلها.",
+ [['BAII','36 000 DT'],['Total Actif','300 000 DT']],'36 000 / 300 000 × 100','12 %',
+ "12 % : chaque dinar d'actif génère 0,12 DT de bénéfice d'exploitation.",
+ "12% يعني كل دينار أصول يجيب 0,12 دينار ربح.",
+ "Une rentabilité économique supérieure au coût des dettes crée de la valeur.",
+ "Une rentabilité inférieure au coût de financement est préoccupante.",
+ ["Utiliser le Résultat Net au lieu du BAII.","Confondre avec ROA.","Oublier de multiplier par 100."],
+ ["BAII = 40 000 DT ; Total Actif = 320 000 DT. Calcule la rentabilité économique.","BAII = 40 000 · Total Actif = 320 000","40 000 / 320 000 × 100","12,5 %","Chaque dinar d'actif rapporte 0,125 DT avant intérêts et impôt."]);
+
+mk('roa','Rentabilité','ROA (Return On Assets)',
+ "ROA (%) = (Résultat Net / Total Actif) × 100",
+ [['Résultat Net',"Bénéfice final après impôt.","الربح الأخير بعد الضريبة.",'n'],['Total Actif',"Tous les biens de l'entreprise.","كل ممتلكات الشركة.",'d']],
+ "Mesure le bénéfice net que l'entreprise tire de ses actifs. C'est le rendement final des biens.",
+ "تقيس الربح الصافي اللي تجيبو الأصول. هو المردودية الأخيرة.",
+ ["Comme la rentabilité économique, on compare un bénéfice aux actifs.","Mais ici on prend le résultat net, après intérêts et impôt.","On le rapporte au total actif."],
+ "كيف الرونتابيليتي إيكونوميك ولكن هنا نخذو الربح الصافي بعد الفوائد والضريبة.",
+ [['Résultat Net','24 000 DT'],['Total Actif','300 000 DT']],'24 000 / 300 000 × 100','8 %',
+ "8 % : chaque dinar d'actif génère 0,08 DT de bénéfice net.",
+ "8% يعني كل دينار أصول يجيب 0,08 دينار ربح صافي.",
+ "Un ROA en hausse indique une meilleure utilisation des actifs.",
+ "Un ROA faible ou négatif montre des actifs peu rentables. Comparer au secteur.",
+ ["Confondre ROA et rentabilité économique (BAII vs Résultat Net).","Utiliser les Capitaux Propres au lieu du Total Actif.","Oublier de multiplier par 100."],
+ ["Résultat net = 18 000 DT ; Total Actif = 360 000 DT. Calcule le ROA.","Résultat net = 18 000 · Total Actif = 360 000","18 000 / 360 000 × 100","5 %","Chaque dinar d'actif génère 0,05 DT de bénéfice net."]);
+
+mk('rentabilite-financiere','Rentabilité','Rentabilité Financière',
+ "Rentabilité Financière (%) = (Résultat Net / Capitaux Propres) × 100",
+ [['Résultat Net',"Bénéfice final après impôt.","الربح الأخير بعد الضريبة.",'n'],['Capitaux Propres',"L'argent des associés investi dans l'entreprise.","فلوس الشركاء اللي مستثمرة.",'d']],
+ "Mesure le rendement de l'argent des associés. C'est ce qui les intéresse : combien leur rapporte leur investissement ?",
+ "تقيس مردودية فلوس الشركاء: قداش يجيبلهم استثمارهم؟",
+ ["Les associés ont investi des Capitaux Propres.","Ce qu'ils gagnent est le Résultat Net.","On compare donc le résultat net aux capitaux propres."],
+ "الشركاء حطو فلوسهم (رأس المال)، والربح الصافي هو اللي يجيبو. نقارنو الاثنين.",
+ [['Résultat Net','24 000 DT'],['Capitaux Propres','120 000 DT']],'24 000 / 120 000 × 100','20 %',
+ "20 % : 100 DT investis par les associés rapportent 20 DT de bénéfice net.",
+ "20% يعني 100 دينار مستثمرة تجيب 20 دينار ربح.",
+ "Une rentabilité financière supérieure à ce qu'offrirait un placement sans risque attire les investisseurs.",
+ "Un niveau très élevé peut venir d'un fort endettement (effet de levier) : il faut regarder le risque.",
+ ["Utiliser le Total Actif au lieu des Capitaux Propres.","Croire qu'une valeur élevée est toujours positive.","Confondre avec le ROA."],
+ ["Résultat net = 30 000 DT ; Capitaux propres = 200 000 DT. Calcule la rentabilité financière.","Résultat net = 30 000 · CP = 200 000","30 000 / 200 000 × 100","15 %","Les associés gagnent 15 DT pour 100 DT investis."]);
+})();
+
+
+const VARIATIONS = {
+ 'liquidite-generale':["Meilleure couverture des dettes courtes. Trop élevé : stocks ou créances qui dorment.","تغطية أحسن للديون القصيرة. كان برشا: مخزون وإلا ديون حرفاء معطلة.","Couverture plus faible. Sous 1 : difficulté à payer les dettes proches.","تغطية أضعف. تحت 1: صعوبة في خلاص الديون القريبة."],
+ 'caf':["L'activité génère plus de ressources propres : bon signe.","الخدمة تجيب موارد أكثر بروحها: علامة باهية.","Moins de ressources générées. Négative : situation préoccupante.","موارد أقل. كان سالبة: وضعية مقلقة."],
+ 'autonomie-financiere':["Plus de ressources propres : l'entreprise dépend moins des créanciers (bon signe).","الشركة تعتمد أكثر على فلوسها وأقل على الدائنين: علامة باهية.","Plus de dettes dans les ressources stables : dépendance et risque plus forts.","ديون أكثر في الموارد القارة: تبعية وخطر أكبر."],
+ 'solvabilite-generale':["Les biens couvrent mieux les dettes : garantie plus forte pour les créanciers.","الممتلكات تغطي الديون أحسن: ضمان أكبر للدائنين.","Les dettes pèsent plus par rapport aux biens. Sous 1 : risque d'insolvabilité.","الديون أثقل مقارنة بالممتلكات. تحت 1: خطر عدم القدرة على الخلاص."],
+ 'liquidite-reduite':["Meilleure capacité à payer les dettes courtes sans vendre le stock.","قدرة أحسن على خلاص الديون القصيرة بلا ما نبيعو المخزون.","L'entreprise dépend davantage de ses stocks pour payer : tension de trésorerie possible.","الشركة تعتمد أكثر على المخزون باش تخلص: ضغط على الخزينة ممكن."],
+ 'liquidite-immediate':["Plus d'argent disponible tout de suite. Trop élevé : argent dormant qui ne rapporte rien.","كاش أكثر موجود توا. كان برشا: فلوس نايمة ما تجيب شي.","Moins de cash disponible : risque si les dettes sont réclamées rapidement.","كاش أقل: خطر كان الديون يتطلبو بسرعة."],
+ 'couverture-charges-financieres':["Les intérêts pèsent moins sur le bénéfice : dette plus supportable.","الفوائد أخف على الربح: الدين أسهل في التحمل.","Les intérêts absorbent une part plus grande du bénéfice. Proche de 1 : danger.","الفوائد تاكل جزء أكبر من الربح. قريب من 1: خطر."],
+ 'rotation-actif':["Les actifs produisent plus de ventes : meilleure efficacité.","الأصول تعمل مبيعات أكثر: كفاءة أحسن.","Actifs sous-utilisés ou ventes en baisse.","أصول غير مستغلة كيف يلزم وإلا مبيعات نقصت."],
+ 'rotation-stocks':["Le stock se vend plus vite : moins d'argent immobilisé (attention aux ruptures).","المخزون يتباع أسرع: فلوس أقل معطلة (حذار نفاد السلعة).","Le stock dort : argent immobilisé et risque d'invendus.","المخزون راقد: فلوس معطلة وخطر سلعة ما تتباعش."],
+ 'delai-clients':["Les clients paient plus tard : trésorerie sous tension (mauvais signe).","الحرفاء يخلصو أتأخر: ضغط على الخزينة (علامة موش باهية).","Les clients paient plus vite : l'argent rentre plus tôt (bon signe).","الحرفاء يخلصو أسرع: الفلوس تدخل بكري (علامة باهية)."],
+ 'delai-fournisseurs':["L'entreprise paie plus tard : plus de crédit fournisseur, mais attention à la relation.","الشركة تخلص أتأخر: قرض أطول من الموردين، ولكن حذار العلاقة معاهم.","L'entreprise paie plus vite : moins de crédit fournisseur, trésorerie plus sollicitée.","الشركة تخلص أسرع: قرض أقل من الموردين وضغط أكبر على الخزينة."],
+ 'marge-brute':["Chaque vente laisse plus pour couvrir les charges : bonne politique de prix ou d'achat.","كل بيعة تخلي أكثر باش تغطي المصاريف: سياسة أسعار وإلا شراء باهية.","Prix de vente ou coût d'achat qui se dégrade : moins de marge pour couvrir les charges.","سعر البيع وإلا كلفة الشراء تدهورو: مارج أقل لتغطية المصاريف."],
+ 'marge-nette':["Plus de bénéfice par dinar de vente : meilleure maîtrise des charges.","ربح أكثر على كل دينار مبيعات: تحكم أحسن في المصاريف.","Les charges absorbent plus des ventes. Négative : l'entreprise perd de l'argent.","المصاريف تاكل أكثر من المبيعات. كان سالبة: الشركة خاسرة."],
+ 'rentabilite-economique':["Les actifs rapportent plus : activité plus performante.","الأصول تجيب أكثر: النشاط أحسن أداء.","Les actifs rapportent moins : la performance d'exploitation se dégrade.","الأصول تجيب أقل: أداء الاستغلال يتدهور."],
+ 'roa':["Plus de bénéfice net par dinar d'actif : meilleure rentabilité des biens.","ربح صافي أكثر على كل دينار أصول: مردودية أحسن.","Les actifs sont moins rentables.","الأصول أقل مردودية."],
+ 'rentabilite-financiere':["Les associés gagnent plus sur leur argent. Vérifier que ce n'est pas dû à un fort endettement.","الشركاء يربحو أكثر من فلوسهم. شوف إذا موش بسبب الديون الكبيرة.","Le rendement des associés baisse : investissement moins attractif.","مردودية الشركاء تنقص: الاستثمار أقل جاذبية."]
+};
+function variationHtml(p){
+  const v = VARIATIONS[p.id];
+  if(!v) return '';
+  return '<div class="interp-flags">'+
+    '<div class="flag-card neu"><strong>↑ Si le ratio augmente</strong>'+v[0]+'<p class="tn" style="margin-top:6px;">'+v[1]+'</p></div>'+
+    '<div class="flag-card neu"><strong>↓ Si le ratio diminue</strong>'+v[2]+'<p class="tn" style="margin-top:6px;">'+v[3]+'</p></div></div>';
+}
+
+const GLOSSAIRE = [
+  {id:'caf-g', terme:'CAF (Capacité d\u2019Autofinancement)', fr:"Ressource financière générée par l'activité de l'entreprise, disponible pour investir ou rembourser des dettes.", tn:"الفلوس اللي الشركة جابتهم فعلا من خدمتها، ونجمو نستعملوهم باش نستثمرو وإلا نخلصو ديون.", formule:"Résultat Net + Dotations − Reprises", lien:'caf'},
+  {id:'bfr', terme:'BFR (Besoin en Fonds de Roulement)', fr:"Argent dont l'entreprise a besoin pour financer son cycle d'exploitation (stocks + créances − dettes fournisseurs).", tn:"الفلوس اللي الشركة محتاجاهم باش تخدم يوميا (ستوك + ديون الحرفاء − ديون الموردين).", formule:"BFR = (Stocks + Créances) − Dettes fournisseurs", lien:null},
+  {id:'fr', terme:'FR (Fonds de Roulement)', fr:"Partie des ressources stables qui finance le cycle d'exploitation, après financement des immobilisations.", tn:"جزء من الفلوس المستقرة اللي تفضل بعد ما نخلصو الإستثمارات، ونستعملوها في الخدمة اليومية.", formule:"FR = Ressources stables − Emplois stables", lien:null},
+  {id:'ac-g', terme:'Actif Circulant', fr:"Ensemble des éléments de l'actif qui se transforment en argent en moins d'un an (stocks, créances, disponibilités).", tn:"كل شي في الشركة يتحول لفلوس في أقل من سنة.", formule:null, lien:'liquidite-generale'},
+  {id:'baii', terme:'BAII (Bénéfice Avant Intérêts et Impôts)', fr:"Bénéfice de l'activité avant de payer les intérêts et l'impôt.", tn:"الربح قبل الفوائد والضريبة.", formule:null, lien:'rentabilite-economique'},
+  {id:'pc-g', terme:'PC (Passif Circulant)', fr:"Dettes à payer en moins d'un an.", tn:"الديون اللي لازم نخلصوها في أقل من عام.", formule:null, lien:'liquidite-generale'},
+  {id:'cperm-g', terme:'Capitaux Permanents', fr:"Capitaux Propres + dettes à long terme : les ressources stables.", tn:"الأموال الخاصة + الديون الطويلة المدى.", formule:"Capitaux Propres + Dettes LT", lien:'autonomie-financiere'},
+  {id:'ebe', terme:'EBE (Excédent Brut d\u2019Exploitation)', fr:"Ce que l'entreprise gagne grâce à son activité normale, avant amortissements, provisions, charges financières et impôt.", tn:"شنية الشركة ربحتها من خدمتها العادية، قبل الإهتلاك والمصاريف المالية والضريبة.", formule:"EBE = Valeur Ajoutée + Subventions − Charges de personnel − Impôts et taxes", lien:null}
+];
+
+/* ============================================================
+   ÉTAT (localStorage — par appareil / navigateur uniquement)
+   ============================================================ */
+const state = {
+  theme: null,
+  favoris: [],
+  compris: [],
+  exoStep: {}, // id -> {level, revealed:[]}
+  chatHistory: [] // {role, content}
+};
+
+function safeGet(key, fallback){
+  try{
+    const v = localStorage.getItem(key);
+    return v ? JSON.parse(v) : fallback;
+  }catch(e){ return fallback; }
+}
+function safeSet(key, value){
+  try{ localStorage.setItem(key, JSON.stringify(value)); }catch(e){ /* ignore */ }
+}
+
+state.theme = safeGet('rf_theme', null);
+state.favoris = safeGet('rf_favoris', []);
+state.compris = safeGet('rf_compris', []);
+
+if(state.theme){ document.documentElement.setAttribute('data-theme', state.theme); }
+updateThemeIcon();
+
+function updateThemeIcon(){
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark' ||
+    (!document.documentElement.getAttribute('data-theme') && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  const icon = document.getElementById('themeIcon');
+  if(isDark){
+    icon.innerHTML = '<path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/>';
+  } else {
+    icon.innerHTML = '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>';
+  }
+}
+
+document.getElementById('themeToggle').addEventListener('click', function(){
+  const current = document.documentElement.getAttribute('data-theme');
+  const systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const effectiveDark = current === 'dark' || (!current && systemDark);
+  const next = effectiveDark ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  state.theme = next;
+  safeSet('rf_theme', next);
+  updateThemeIcon();
+});
+
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(showToast._h);
+  showToast._h = setTimeout(function(){ t.classList.remove('show'); }, 1800);
+}
+
+function copyText(text){
+  try{
+    navigator.clipboard.writeText(text).then(function(){ showToast('Formule copiée ✓'); }, function(){ fallbackCopy(text); });
+  }catch(e){ fallbackCopy(text); }
+}
+function fallbackCopy(text){
+  try{
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.style.position='fixed'; ta.style.opacity='0';
+    document.body.appendChild(ta); ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast('Formule copiée ✓');
+  }catch(e){ showToast('Sélectionne la formule pour la copier'); }
+}
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+let currentView = 'intro';
+let currentPropertyId = null;
+
+function findProp(id){ return PROPRIETES.find(function(p){ return p.id===id; }); }
+
+function goTo(view, opts){
+  opts = opts || {};
+  currentView = view;
+  document.querySelectorAll('.view').forEach(function(v){ v.classList.remove('active'); });
+  const el = document.getElementById('view-'+view);
+  if(el){ el.classList.add('active'); }
+  document.querySelectorAll('.nav-btn').forEach(function(b){
+    b.classList.toggle('active', b.dataset.view === view);
+  });
+  window.scrollTo({top:0, behavior: (window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto':'smooth')});
+  closeDrawer();
+  if(view === 'revision'){ renderRevision(); }
+  if(view === 'glossaire'){ renderGlossaire(); }
+  if(view === 'notions'){ renderPropGrid(); }
+  if(!opts.silent){
+    try{ history.pushState({view:view, prop: opts.prop||null}, '', '#'+view+(opts.prop? '/'+opts.prop:'')); }catch(e){}
+  }
+}
+
+document.querySelectorAll('.nav-btn').forEach(function(btn){
+  btn.addEventListener('click', function(){ goTo(btn.dataset.view); });
+});
+document.querySelectorAll('[data-back]').forEach(function(btn){
+  btn.addEventListener('click', function(){ goTo(btn.dataset.back); });
+});
+
+window.addEventListener('popstate', function(e){
+  const hash = location.hash.replace('#','');
+  if(!hash){ goTo('intro', {silent:true}); return; }
+  const parts = hash.split('/');
+  if(parts[0] === 'propriete' && parts[1]){
+    openProperty(parts[1], {silent:true});
+  } else {
+    goTo(parts[0], {silent:true});
+  }
+});
+
+/* Mobile drawer */
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('drawerOverlay');
+document.getElementById('hamburgerBtn').addEventListener('click', function(){
+  sidebar.classList.add('open'); overlay.classList.add('open');
+});
+overlay.addEventListener('click', closeDrawer);
+function closeDrawer(){ sidebar.classList.remove('open'); overlay.classList.remove('open'); }
+
+/* ============================================================
+   GRAND 2 — GRILLE DE PROPRIÉTÉS
+   ============================================================ */
+let currentFilter = 'all';
+document.querySelectorAll('#view-notions .pill-btn').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    document.querySelectorAll('#view-notions .pill-btn').forEach(function(b){ b.classList.remove('active'); });
+    btn.classList.add('active');
+    currentFilter = btn.dataset.filter;
+    renderPropGrid();
+  });
+});
+
+function renderPropGrid(){
+  const grid = document.getElementById('propGrid');
+  let list = PROPRIETES.slice();
+  if(currentFilter === 'favoris'){ list = list.filter(function(p){ return state.favoris.indexOf(p.id) > -1; }); }
+  if(currentFilter === 'compris'){ list = list.filter(function(p){ return state.compris.indexOf(p.id) > -1; }); }
+
+  if(list.length === 0){
+    grid.innerHTML = '<div class="exo-placeholder">Aucune notion ici pour le moment.</div>';
+    return;
+  }
+
+  grid.innerHTML = list.map(function(p){
+    const isFav = state.favoris.indexOf(p.id) > -1;
+    const isDone = state.compris.indexOf(p.id) > -1;
+    return '<button class="prop-card" data-open="'+p.id+'">'+
+      '<span class="bookmark-btn'+(isFav?' active':'')+'" data-fav="'+p.id+'"><svg viewBox="0 0 24 24" fill="'+(isFav?'currentColor':'none')+'" stroke="currentColor" stroke-width="1.8"><path d="M6 3h12a1 1 0 011 1v17l-7-4-7 4V4a1 1 0 011-1z"/></svg></span>'+
+      '<div class="cat">'+p.categorie+'</div>'+
+      '<h3>'+p.nom+(p.fictif?'<span class="fictif-badge">Exemple</span>':'')+'</h3>'+
+      '<div class="formule-mini">'+p.formule.expression+'</div>'+
+      '<div class="status-row">'+(isDone ? '<span class="understood-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Comprise</span>' : '<span>Pas encore vue</span>')+'</div>'+
+    '</button>';
+  }).join('');
+
+  grid.querySelectorAll('[data-open]').forEach(function(card){
+    card.addEventListener('click', function(e){
+      if(e.target.closest('[data-fav]')) return;
+      openProperty(card.dataset.open);
+    });
+  });
+  grid.querySelectorAll('[data-fav]').forEach(function(b){
+    b.addEventListener('click', function(e){
+      e.stopPropagation();
+      toggleFav(b.dataset.fav);
+      renderPropGrid();
+    });
+  });
+}
+
+function toggleFav(id){
+  const i = state.favoris.indexOf(id);
+  if(i>-1){ state.favoris.splice(i,1); } else { state.favoris.push(id); }
+  safeSet('rf_favoris', state.favoris);
+}
+function toggleCompris(id){
+  const i = state.compris.indexOf(id);
+  if(i>-1){ state.compris.splice(i,1); } else { state.compris.push(id); }
+  safeSet('rf_compris', state.compris);
+  updateProgress();
+}
+function updateProgress(){
+  const total = PROPRIETES.length;
+  const done = state.compris.length;
+  document.getElementById('progressLabel').textContent = done+' notion'+(done>1?'s':'')+' comprise'+(done>1?'s':'')+' sur '+total;
+  document.getElementById('progressFill').style.width = (total? (done/total*100):0)+'%';
+}
+
+/* ============================================================
+   DÉTAIL D'UNE PROPRIÉTÉ
+   ============================================================ */
+function openProperty(id, opts){
+  opts = opts || {};
+  const p = findProp(id);
+  if(!p) return;
+  currentPropertyId = id;
+  document.getElementById('propertyDetail').innerHTML = renderPropertyDetail(p);
+  goTo('property', {silent:opts.silent, prop:id});
+  if(!opts.silent){
+    try{ history.replaceState({view:'property', prop:id}, '', '#propriete/'+id); }catch(e){}
+  }
+  wirePropertyDetail(p);
+}
+
+function renderFacteursLegend(facteurs){
+  return facteurs.map(function(f){
+    return '<div class="fl-row"><span class="fl-sym">'+f.symbole+'</span><span>= '+f.description+'</span></div>';
+  }).join('');
+}
+
+function renderOrigin(origine){
+  const stepsFr = origine.fr.map(function(s,i){
+    return '<div class="origin-step">'+ (i+1) +'. '+s+'</div>' + (i < origine.fr.length-1 ? '<div class="origin-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M19 12l-7 7-7-7"/></svg></div>' : '');
+  }).join('');
+  return '<div class="origin-flow">'+stepsFr+'</div>'+
+    '<div class="origin-result">→ '+origine.resultat+'</div>'+
+    '<div class="lang-block tn" style="margin-top:14px;"><div class="lang-label">بالتونسي</div><p class="tn">'+origine.tn+'</p></div>';
+}
+
+function renderFactorDetail(f){
+  return '<details class="factor-detail">'+
+    '<summary>'+f.nom+'<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></summary>'+
+    '<div class="factor-body">'+
+      '<div><div class="lang-label" style="margin-bottom:8px;">Français</div>'+
+        '<dl class="factor-mini-grid">'+
+          '<dt>Définition</dt><dd>'+f.fr.definition+'</dd>'+
+          '<dt>Rôle</dt><dd>'+f.fr.role+'</dd>'+
+          '<dt>Pourquoi</dt><dd>'+f.fr.pourquoi+'</dd>'+
+        '</dl>'+
+        (f.fr.siAugmente || f.fr.siDiminue ? '<div class="impact-row">'+
+          (f.fr.siAugmente? '<span class="impact-chip up">↑ '+f.fr.siAugmente+'</span>':'')+
+          (f.fr.siDiminue? '<span class="impact-chip down">↓ '+f.fr.siDiminue+'</span>':'')+
+        '</div>' : '')+
+      '</div>'+
+      '<div class="tn"><div class="lang-label" style="margin-bottom:8px;">بالتونسي</div>'+
+        '<dl class="factor-mini-grid">'+
+          '<dt>تعريف</dt><dd>'+f.tn.definition+'</dd>'+
+          '<dt>الدور</dt><dd>'+f.tn.role+'</dd>'+
+          '<dt>علاش</dt><dd>'+f.tn.pourquoi+'</dd>'+
+        '</dl>'+
+      '</div>'+
+    '</div>'+
+  '</details>';
+}
+
+function renderPropertyDetail(p){
+  const isFav = state.favoris.indexOf(p.id) > -1;
+  const isDone = state.compris.indexOf(p.id) > -1;
+  let html = '';
+  html += '<div class="prop-header">'+
+    '<div><div class="eyebrow">'+p.categorie+(p.fictif?'<span class="fictif-badge">Exemple</span>':'')+'</div><h1>'+p.nom+'</h1></div>'+
+    '<div class="prop-actions">'+
+      '<button class="action-btn" data-action="fav">'+
+        '<svg viewBox="0 0 24 24" fill="'+(isFav?'currentColor':'none')+'" stroke="currentColor" stroke-width="1.8"><path d="M6 3h12a1 1 0 011 1v17l-7-4-7 4V4a1 1 0 011-1z"/></svg>'+(isFav?'Favori':'Ajouter aux favoris')+
+      '</button>'+
+      '<button class="action-btn'+(isDone?' on':'')+'" data-action="compris">'+
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>'+(isDone?'Compris ✓':'Marquer comme compris')+
+      '</button>'+
+    '</div>'+
+  '</div>';
+
+  html += '<div class="step-block"><div class="step-head"><span class="step-num">01</span><span class="step-title">À quoi ça sert ?</span></div>'+
+    '<div class="lang-pair"><div class="lang-block fr"><div class="lang-label">Français</div><p>'+p.aQuoiCaSert.fr+'</p></div>'+
+    '<div class="lang-block tn"><div class="lang-label">بالتونسي</div><p class="tn">'+p.aQuoiCaSert.tn+'</p></div></div></div>';
+
+  html += '<div class="step-block"><div class="step-head"><span class="step-num">02</span><span class="step-title">La formule</span></div>'+
+    '<div class="formula-box"><button class="formula-copy" data-copy="'+p.formule.expression.replace(/"/g,'&quot;')+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a1 1 0 01-1-1V4a1 1 0 011-1h10a1 1 0 011 1v1"/></svg>Copier</button>'+
+    '<div class="formula-expr">'+p.formule.expression+'</div>'+
+    '<div class="facteurs-legend">'+renderFacteursLegend(p.formule.facteurs)+'</div></div></div>';
+
+  html += '<div class="step-block"><div class="step-head"><span class="step-num">03</span><span class="step-title">D\u2019où vient la formule ?</span></div>'+renderOrigin(p.origine)+'</div>';
+
+  html += '<div class="step-block"><div class="step-head"><span class="step-num">04</span><span class="step-title">Comprendre chaque facteur</span></div>'+
+    p.facteursDetail.map(renderFactorDetail).join('')+'</div>';
+
+  html += '<div class="step-block"><div class="step-head"><span class="step-num">05</span><span class="step-title">Exemple numérique</span></div>'+
+    '<div class="calc-example"><div class="calc-data">'+p.exempleNumerique.donnees.map(function(d){ return '<span>'+d.label+' = '+d.valeur+'</span>'; }).join('')+'</div>'+
+    p.exempleNumerique.etapes.map(function(e){ return '<div class="calc-step"><div class="cs-title">'+e.titre+'</div><div class="cs-content">'+e.contenu+'</div></div>'; }).join('')+
+    '<div class="calc-result"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Résultat = '+p.exempleNumerique.resultat+'</div></div></div>';
+
+  html += '<div class="step-block"><div class="step-head"><span class="step-num">06</span><span class="step-title">Interprétation</span></div>'+
+    '<div class="interp-box"><div class="lang-pair"><div class="lang-block fr"><div class="lang-label">Français</div><p>'+p.interpretation.fr+'</p></div>'+
+    '<div class="lang-block tn"><div class="lang-label">بالتونسي</div><p class="tn">'+p.interpretation.tn+'</p></div></div>'+
+    '<div class="interp-flags"><div class="flag-card good"><strong>Plutôt favorable</strong>'+p.interpretation.favorable+'</div>'+
+    '<div class="flag-card bad"><strong>À surveiller</strong>'+p.interpretation.defavorable+'</div></div>'+variationHtml(p)+'</div></div>';
+
+  html += '<div class="step-block"><div class="step-head"><span class="step-num">07</span><span class="step-title">Erreurs fréquentes</span></div>'+
+    '<div class="errors-box"><h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>À ne pas faire</h4><ul>'+
+    p.erreursFrequentes.map(function(e){ return '<li>'+e+'</li>'; }).join('')+'</ul></div></div>';
+
+
+  return html;
+}
+
+function wirePropertyDetail(p){
+  const root = document.getElementById('propertyDetail');
+  const favBtn = root.querySelector('[data-action="fav"]');
+  if(favBtn) favBtn.addEventListener('click', function(){ toggleFav(p.id); openProperty(p.id, {silent:true}); });
+  const doneBtn = root.querySelector('[data-action="compris"]');
+  if(doneBtn) doneBtn.addEventListener('click', function(){ toggleCompris(p.id); openProperty(p.id, {silent:true}); });
+  const copyBtn = root.querySelector('[data-copy]');
+  if(copyBtn) copyBtn.addEventListener('click', function(){ copyText(copyBtn.dataset.copy); });
+  updateProgress();
+}
+
+/* ============================================================
+   GRAND 6 — RÉVISION
+   ============================================================ */
+let revMode = '5min';
+document.querySelectorAll('.rev-mode-btn').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    document.querySelectorAll('.rev-mode-btn').forEach(function(b){ b.classList.remove('active'); });
+    btn.classList.add('active');
+    revMode = btn.dataset.mode;
+    renderRevision();
+  });
+});
+
+function renderRevision(){
+  const wrap = document.getElementById('revContent');
+  wrap.innerHTML = PROPRIETES.map(function(p){
+    if(revMode === '5min'){
+      return '<div class="rev-card"><h4>'+p.nom+'</h4>'+
+        '<div class="formule-mini" style="margin-bottom:10px;">'+p.formule.expression+'</div>'+
+        '<div class="rev-mini-row"><b>Facteurs :</b> '+p.formule.facteurs.map(function(f){return f.symbole;}).join(' · ')+'</div>'+
+        '<div class="rev-mini-row"><b>Résultat favorable :</b> '+p.interpretation.favorable.split('.')[0]+'.</div>'+
+      '</div>';
+    }
+    return '<div class="rev-card"><h4>'+p.nom+'</h4>'+
+      '<p style="font-size:.88rem; color:var(--text-soft); margin-bottom:10px;">'+p.aQuoiCaSert.fr+'</p>'+
+      '<div class="formule-mini" style="margin-bottom:10px;">'+p.formule.expression+'</div>'+
+      '<p style="font-size:.88rem;"><b>Interprétation :</b> '+p.interpretation.fr+'</p>'+
+      '<button class="action-btn" data-openrev="'+p.id+'" style="display:inline-flex; margin-top:12px;">Voir la fiche complète</button>'+
+    '</div>';
+  }).join('');
+  wrap.querySelectorAll('[data-openrev]').forEach(function(b){
+    b.addEventListener('click', function(){ openProperty(b.dataset.openrev); });
+  });
+}
+
+/* ============================================================
+   GRAND 7 — GLOSSAIRE
+   ============================================================ */
+function renderGlossaire(filterText){
+  const wrap = document.getElementById('glossaryList');
+  const q = (filterText||'').toLowerCase();
+  const list = GLOSSAIRE.filter(function(g){ return !q || g.terme.toLowerCase().indexOf(q)>-1; });
+  if(list.length===0){ wrap.innerHTML = '<div class="exo-placeholder">Aucun terme ne correspond à ta recherche.</div>'; return; }
+  wrap.innerHTML = list.map(function(g){
+    return '<div class="glossary-item"><div class="glossary-head"><h3>'+g.terme+'</h3></div>'+
+      '<p style="font-size:.9rem; margin-bottom:6px;">'+g.fr+'</p>'+
+      '<p class="tn" style="font-size:.88rem;">'+g.tn+'</p>'+
+      (g.formule? '<div class="glossary-formula">'+g.formule+'</div>' : '')+
+      (g.lien? '<div class="glossary-links"><a href="#" data-gloslink="'+g.lien+'">Voir la propriété liée →</a></div>' : '')+
+    '</div>';
+  }).join('');
+  wrap.querySelectorAll('[data-gloslink]').forEach(function(a){
+    a.addEventListener('click', function(e){ e.preventDefault(); openProperty(a.dataset.gloslink); });
+  });
+}
+
+/* ============================================================
+   RECHERCHE GLOBALE
+   ============================================================ */
+const searchInput = document.getElementById('searchInput');
+const searchResults = document.getElementById('searchResults');
+searchInput.addEventListener('input', function(){
+  const q = searchInput.value.trim().toLowerCase();
+  if(!q){ searchResults.classList.remove('open'); return; }
+  const propMatches = PROPRIETES.filter(function(p){ return p.nom.toLowerCase().indexOf(q)>-1 || p.categorie.toLowerCase().indexOf(q)>-1; });
+  const glosMatches = GLOSSAIRE.filter(function(g){ return g.terme.toLowerCase().indexOf(q)>-1; });
+  if(propMatches.length===0 && glosMatches.length===0){
+    searchResults.innerHTML = '<div class="search-empty">Aucun résultat pour « '+searchInput.value+' »</div>';
+  } else {
+    searchResults.innerHTML =
+      propMatches.map(function(p){ return '<button class="search-res-item" data-goprop="'+p.id+'"><div class="tag">Notion</div>'+p.nom+'</button>'; }).join('') +
+      glosMatches.map(function(g){ return '<button class="search-res-item" data-goglos="'+g.id+'"><div class="tag">Glossaire</div>'+g.terme+'</button>'; }).join('');
+  }
+  searchResults.classList.add('open');
+  searchResults.querySelectorAll('[data-goprop]').forEach(function(b){
+    b.addEventListener('click', function(){ openProperty(b.dataset.goprop); searchResults.classList.remove('open'); searchInput.value=''; });
+  });
+  searchResults.querySelectorAll('[data-goglos]').forEach(function(b){
+    b.addEventListener('click', function(){ goTo('glossaire'); searchInput.value=''; searchResults.classList.remove('open'); });
+  });
+});
+document.addEventListener('click', function(e){
+  if(!e.target.closest('.search-wrap')){ searchResults.classList.remove('open'); }
+});
+
+/* ============================================================
+   GRAND 5 — ASSISTANT IA (capacité "sample")
+   ============================================================ */
+let aiSample = null;
+let aiAvailable = false;
+let aiImages = false, attached = [], attachedName = '';
+
+const SUGGESTIONS = [
+  "Explique-moi cette propriété en tunisien.",
+  "Fais-moi un exercice à partir de ma photo ou de mon PDF (clic sur le trombone).",
+  "D\u2019où vient cette formule ?",
+  "Fais-moi un exercice sur la liquidité générale.",
+  "Quelle différence entre la CAF et le résultat net ?"
+];
+
+
+function escH(x){ return x.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function fmtAi(t){
+  t = (t||'').replace(/\*\*/g,'');
+  var i = t.indexOf('بالتونسي');
+  var fr = i>-1 ? t.slice(0,i) : t;
+  var tn = i>-1 ? t.slice(i+8).replace(/^\s*[:：]?\s*/,'') : '';
+  function paras(x,cls){ return x.split(/\n{2,}/).map(function(p){ p=p.trim(); return p ? '<p'+(cls?' class="'+cls+'"':'')+'>'+escH(p).replace(/\n/g,'<br>')+'</p>' : ''; }).join(''); }
+  return paras(fr.trim(),'') + (tn.trim() ? '<div class="tn-answer"><div class="lang-label" style="text-align:right;">بالتونسي</div>'+paras(tn.trim(),'tn')+'</div>' : '');
+}
+function chatAppend(role, text){
+  const log = document.getElementById('chatLog');
+  const div = document.createElement('div');
+  div.className = 'chat-msg '+role;
+  if(role==='ai'){
+    div.innerHTML = (text.indexOf('typing-dots')>-1) ? text : fmtAi(text);
+  } else {
+    div.textContent = text;
+  }
+  log.appendChild(div);
+  log.scrollTop = log.scrollHeight;
+  return div;
+}
+
+function renderSuggestions(){
+  const row = document.getElementById('suggestRow');
+  row.innerHTML = SUGGESTIONS.map(function(s){ return '<button class="suggest-chip">'+s+'</button>'; }).join('');
+  row.querySelectorAll('.suggest-chip').forEach(function(b){
+    b.addEventListener('click', function(){ document.getElementById('chatInput').value = b.textContent; sendChat(); });
+  });
+}
+
+let SYSTEM_PROMPT = "Tu es l'Assistant Diagnostic Financier d'un site pédagogique pour des étudiants de 2ème année Gestion à l'ISG (Tunisie). "+
+  "Réponds toujours en français simple, avec des phrases courtes. Si c'est utile pour la compréhension, ajoute une explication en arabe tunisien (Derja), introduite par « بالتونسي : », qui explique la logique plutôt qu'une traduction mot à mot. "+
+  "Respecte les RÈGLES DE RÉPONSE données plus bas. "+
+  "N'utilise jamais un langage universitaire compliqué. Ne mémorise pas de règles absolues quand la réponse dépend du contexte : dis-le clairement. "+
+  "Le site contient les ratios du cours : autonomie financière, solvabilité, liquidités (générale, réduite, immédiate), couverture des charges financières, rotations (actif, stocks), délais clients/fournisseurs, marges brute/nette, rentabilités économique/financière, ROA. La CAF est un exemple fictif. Si l'étudiant demande une notion absente, explique le concept général et précise que le contenu du cours sera ajouté.";
+
+
+SYSTEM_PROMPT += "\n\nRATIOS AUTORISÉS (formules exactes du cours, n'en utilise jamais d'autres) :\n" + PROPRIETES.filter(function(p){return !p.fictif;}).map(function(p){return "- "+p.nom+" : "+p.formule.expression;}).join("\n") + "\n\nSi l'étudiant demande un exercice : utilise uniquement ces ratios et ces formules. S'il joint une photo ou un PDF, lis les chiffres qui y figurent (bilan, compte de résultat, énoncé) et construis l'exercice avec ces chiffres ; si un chiffre manque pour un ratio, dis-le au lieu de l'inventer. Format : 1) Énoncé et données, 2) Calcul pas à pas, 3) Résultat, 4) Interprétation en français puis en tunisien (بالتونسي), avec ce que signifie une hausse et une baisse du ratio. Ne donne pas de seuil absolu quand la réponse dépend du secteur.";
+
+SYSTEM_PROMPT += "\n\nRÈGLES DE RÉPONSE : réponds court et adapté à la question. Question simple = 2 à 4 phrases maximum, sans titres ni listes inutiles. N'ajoute la formule, un exemple chiffré ou l'interprétation que si la question le demande. Ne mélange jamais le français et l'arabe dans la même phrase : écris d'abord toute la réponse en français ; puis, seulement si l'étudiant le demande ou si le concept est difficile, ajoute une version courte (2 à 3 phrases) en tunisien, séparée, sur une nouvelle ligne introduite par « بالتونسي : ». Pas de gras (**). Exception : si un exercice est demandé, suis le format complet ci-dessous.";
+
+function clearAttach(){ attached=[]; attachedName=''; document.getElementById('attachInfo').textContent=''; document.getElementById('chatFile').value=''; }
+function loadPdfJs(){
+  return new Promise(function(res,rej){
+    if(window.pdfjsLib) return res(window.pdfjsLib);
+    var sc=document.createElement('script');
+    sc.src='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+    sc.onload=function(){ window.pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js'; res(window.pdfjsLib); };
+    sc.onerror=rej; document.head.appendChild(sc);
+  });
+}
+async function pdfToBlobs(file){
+  const lib = await loadPdfJs();
+  const pdf = await lib.getDocument({data: await file.arrayBuffer()}).promise;
+  const out = [];
+  for(let i=1;i<=Math.min(pdf.numPages,3);i++){
+    const pg = await pdf.getPage(i);
+    const vp = pg.getViewport({scale:1.5});
+    const c = document.createElement('canvas'); c.width=vp.width; c.height=vp.height;
+    await pg.render({canvasContext:c.getContext('2d'), viewport:vp}).promise;
+    out.push(await new Promise(function(r){ c.toBlob(r,'image/jpeg',0.85); }));
+  }
+  return out;
+}
+document.getElementById('chatAttach').addEventListener('click', function(){ document.getElementById('chatFile').click(); });
+document.getElementById('chatFile').addEventListener('change', async function(e){
+  const f = e.target.files[0]; if(!f) return;
+  const info = document.getElementById('attachInfo');
+  info.textContent = 'Lecture du fichier…';
+  try{
+    let blobs;
+    if(f.type === 'application/pdf'){ blobs = await pdfToBlobs(f); }
+    else if(f.type.indexOf('image/') === 0){ blobs = [f]; }
+    else { throw new Error('type'); }
+    attached = blobs.slice(0,3); attachedName = f.name;
+    info.textContent = '📎 '+f.name+(f.type==='application/pdf' ? ' ('+attached.length+' page(s), 3 max)' : '')+' — écris ta demande ou envoie directement.';
+  }catch(err){
+    clearAttach(); showToast('Fichier illisible. Essaie une photo.');
+  }
+});
+
+async function initAI(){
+  try{
+    aiSample = await claude.use('sample');
+  }catch(e){ aiSample = null; }
+  aiAvailable = !!aiSample;
+  try{ aiImages = !!(aiSample && (await aiSample.limits()).images); }catch(e){ aiImages = false; }
+  if(!aiImages){ document.getElementById('chatAttach').style.display='none'; }
+  if(!aiAvailable){
+    chatAppend('system', "L\u2019assistant IA n\u2019est pas disponible dans cette vue pour le moment. Tu peux quand même consulter les notions et le glossaire.");
+    document.getElementById('chatInput').disabled = true;
+    document.getElementById('chatSend').disabled = true;
+  } else {
+    chatAppend('ai', "Salut ! Je suis ton assistant Diagnostic Financier 👋 Pose-moi une question sur une formule, un calcul, ou demande-moi une explication en tunisien.");
+    renderSuggestions();
+  }
+}
+
+async function sendChat(){
+  const input = document.getElementById('chatInput');
+  let text = input.value.trim(); const imgs = attached.slice(); const attName = attachedName;
+  if(!text && imgs.length){ text = "Fais-moi un exercice à partir de ce document, en utilisant uniquement les ratios du site."; }
+  if(!text || !aiAvailable) return;
+  input.value = '';
+  clearAttach(); chatAppend('user', text + (imgs.length ? '  📎 '+attName : ''));
+  state.chatHistory.push({role:'user', content:text});
+
+  const sendBtn = document.getElementById('chatSend');
+  sendBtn.disabled = true;
+  const thinking = chatAppend('ai', '<span class="typing-dots"><span></span><span></span><span></span></span>');
+
+  try{
+    const messages = [{role:'user', content: SYSTEM_PROMPT + "\\n\\nQuestion de l'étudiant : " + text}];
+    const result = await aiSample(messages, {
+      images: imgs.length ? imgs : undefined,
+      onText: function(evt){
+        thinking.innerHTML = fmtAi(evt.text);
+        document.getElementById('chatLog').scrollTop = document.getElementById('chatLog').scrollHeight;
+      }
+    });
+    thinking.innerHTML = fmtAi(result.text||'');
+    state.chatHistory.push({role:'assistant', content: result.text});
+  }catch(err){
+    thinking.innerHTML = '<p>Désolé, je n\u2019ai pas pu répondre pour le moment. Réessaie dans un instant.</p>';
+  }
+  sendBtn.disabled = false;
+  document.getElementById('chatLog').scrollTop = document.getElementById('chatLog').scrollHeight;
+}
+document.getElementById('chatSend').addEventListener('click', sendChat);
+document.getElementById('chatInput').addEventListener('keydown', function(e){ if(e.key==='Enter'){ sendChat(); } });
+
+/* ============================================================
+   INIT
+   ============================================================ */
+updateProgress();
+renderPropGrid();
+initAI();
+
+(function initRoute(){
+  const hash = location.hash.replace('#','');
+  if(!hash){ goTo('intro', {silent:true}); return; }
+  const parts = hash.split('/');
+  if(parts[0] === 'propriete' && parts[1] && findProp(parts[1])){
+    openProperty(parts[1], {silent:true});
+  } else if(document.getElementById('view-'+parts[0])){
+    goTo(parts[0], {silent:true});
+  } else {
+    goTo('intro', {silent:true});
+  }
+})();
+
+})();
+</script>
+</body>
+</html>
